@@ -19,8 +19,52 @@ import java.awt.Toolkit;
 public class Gerente {
 
 	private JFrame frmEventifGerente;
+	private JButton btnGerenciarEvento;
+	private JButton btnGerenciarParticipante;
+	private JButton btnNewButton;
+	private JButton btnGerenciarCrach;
+	private JButton btnGerenciarCertificado;
 	
 	
+	public JButton getBtnGerenciarEvento() {
+		return btnGerenciarEvento;
+	}
+
+	public void setBtnGerenciarEvento(JButton btnGerenciarEvento) {
+		this.btnGerenciarEvento = btnGerenciarEvento;
+	}
+
+	public JButton getBtnGerenciarParticipante() {
+		return btnGerenciarParticipante;
+	}
+
+	public void setBtnGerenciarParticipante(JButton btnGerenciarParticipante) {
+		this.btnGerenciarParticipante = btnGerenciarParticipante;
+	}
+
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(JButton btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
+
+	public JButton getBtnGerenciarCrach() {
+		return btnGerenciarCrach;
+	}
+
+	public void setBtnGerenciarCrach(JButton btnGerenciarCrach) {
+		this.btnGerenciarCrach = btnGerenciarCrach;
+	}
+
+	public JButton getBtnGerenciarCertificado() {
+		return btnGerenciarCertificado;
+	}
+
+	public void setBtnGerenciarCertificado(JButton btnGerenciarCertificado) {
+		this.btnGerenciarCertificado = btnGerenciarCertificado;
+	}
 
 	public JFrame getFrmEventifGerente() {
 		return frmEventifGerente;
@@ -78,11 +122,11 @@ public class Gerente {
 		);
 		panel.setLayout(null);
 		
-		JButton btnGerenciarEvento = new JButton("Gerenciar evento");
+		btnGerenciarEvento = new JButton("Gerenciar evento");
 		btnGerenciarEvento.setBounds(324, 228, 172, 31);
 		panel.add(btnGerenciarEvento);
 		
-		JButton btnGerenciarParticipante = new JButton("Gerenciar aluno");
+		btnGerenciarParticipante = new JButton("Gerenciar aluno");
 		btnGerenciarParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -90,15 +134,15 @@ public class Gerente {
 		btnGerenciarParticipante.setBounds(324, 270, 172, 31);
 		panel.add(btnGerenciarParticipante);
 		
-		JButton btnNewButton = new JButton("Gerenciar monitor");
+		btnNewButton = new JButton("Gerenciar monitor");
 		btnNewButton.setBounds(324, 312, 172, 31);
 		panel.add(btnNewButton);
 		
-		JButton btnGerenciarCrach = new JButton("Gerenciar crach\u00E1");
+		btnGerenciarCrach = new JButton("Gerenciar crach\u00E1");
 		btnGerenciarCrach.setBounds(324, 354, 172, 31);
 		panel.add(btnGerenciarCrach);
 		
-		JButton btnGerenciarCertificado = new JButton("Gerenciar certificado");
+		btnGerenciarCertificado = new JButton("Gerenciar certificado");
 		btnGerenciarCertificado.setBounds(324, 396, 172, 31);
 		panel.add(btnGerenciarCertificado);
 		

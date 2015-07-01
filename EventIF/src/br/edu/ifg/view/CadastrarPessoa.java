@@ -47,24 +47,6 @@ public class CadastrarPessoa {
 		this.cbUf = cbUf;
 	}
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastrarPessoa window = new CadastrarPessoa();
-					window.frmEventifGerente.setVisible(true);
-					//ControleCadastrar cd = new ControleCadastrar();
-					//cd.adicionarEvento( new AlunoDAO() );
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -195,6 +177,7 @@ public class CadastrarPessoa {
 		label.setIcon(new ImageIcon(CadastrarPessoa.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));
 		label.setBounds(0, 0, 569, 280);
 		panel.add(label);
+		
 	}
 
 }

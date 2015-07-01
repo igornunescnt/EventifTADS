@@ -2,34 +2,41 @@ package br.edu.ifg.controll;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-import br.edu.ifg.bd.ConnectionFactory;
 import br.edu.ifg.modelDAO.AlunoDAO;
 import br.edu.ifg.view.CadastrarPessoa;
 
 public class ControleCadastrar {
 	
-	CadastrarPessoa c = new CadastrarPessoa();
+	CadastrarPessoa c = null;
 
-	public ControleCadastrar() {
+	public ControleCadastrar(CadastrarPessoa c) {
+		this.c = c;
 		AlunoDAO a1 = new AlunoDAO();
-		adicionarEvento(a1);
+		carregaEstados(a1);
 		
 		
-		c.getCbUf().addActionListener(new ActionListener() {
+		c.getCbUf().addItemListener(new ItemListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void itemStateChanged(ItemEvent arg0) {
 				if(c.getCbUf().getSelectedIndex() != 0){
+					c.getCbCidade().removeAllItems();
 					c.getCbCidade().setEnabled(true);
+					int idEstado = c.getCbUf().getSelectedIndex();
+					carregaCidades(a1.Cidade(idEstado));
 				}
+				else{
+					c.getCbCidade().setEnabled(false);
+				}
+				
 			}
 		});
+		
 	c.getCbCidade().addActionListener(new ActionListener() {
 		
 		@Override
@@ -40,24 +47,30 @@ public class ControleCadastrar {
 		}
 	});
 	}
-
 	
-	
+	public void carregaEstados(AlunoDAO a){
+		try {
+			ResultSet r = a.Estado();
 
+			while(r.next()){
+				c.getCbUf().addItem(r.getString("ufestado"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (c.getCbUf().getSelectedIndex()==0){
+			c.getCbCidade().setEnabled(false);
+		}
+	}
 
-
-	public void adicionarEvento(AlunoDAO a){
+	public void carregaCidades(ResultSet rs){
 		
 		
 		try {
-			ResultSet rs = a.Cidade();
-			ResultSet r = a.Estado();
 
 			while(rs.next()){
 				c.getCbCidade().addItem(rs.getString("nomecidade"));
-			}
-			while(r.next()){
-				c.getCbUf().addItem(r.getString("ufestado"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -69,8 +82,9 @@ public class ControleCadastrar {
 		else {
 			
 		}
-
 	}
 	
-	
+	public void addEventoBotao(){
+		
+	}
 }

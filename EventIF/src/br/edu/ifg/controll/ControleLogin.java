@@ -33,11 +33,11 @@ public class ControleLogin {
 					// fazer altenticação do  aluno.
 					l.getFrmEventifLogin().dispose();
 					Aluno a1 = new Aluno();
-					AtividadeAluno b1 = new AtividadeAluno();
-					ControleAluno c1 = new ControleAluno(a1,b1);
+					ControleAluno c1 = new ControleAluno(a1);
 				}else if (l.getRdbtnGerente().isSelected()){
 					l.getFrmEventifLogin().dispose();
 					Gerente g1 = new Gerente();
+					ControleGerente g = new ControleGerente();
 				}else if(l.getRdbtnMonitor().isSelected()){
 					l.getFrmEventifLogin().dispose();
 					Monitor m1 = new Monitor();
@@ -50,7 +50,7 @@ public class ControleLogin {
 			public void actionPerformed(ActionEvent arg0) {
 				l.getFrmEventifLogin().dispose();
 				CadastrarPessoa c = new CadastrarPessoa();
-				ControleCadastrar d = new ControleCadastrar(); 
+				ControleCadastrar d = new ControleCadastrar(c); 
 			}
 		});
 	}

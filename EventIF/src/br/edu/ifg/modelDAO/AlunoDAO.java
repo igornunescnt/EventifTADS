@@ -216,12 +216,12 @@ public class AlunoDAO {
 		
 
 
-	public ResultSet Cidade() {
+	public ResultSet Cidade(int idEstado) {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
 			con = conf.getConnection();
-			stmt = con.prepareStatement("select nomecidade from cidade");
+			stmt = con.prepareStatement("select nomecidade from cidade where idestado="+idEstado);
 			ResultSet rs = stmt.executeQuery();
 			
 			return rs;	

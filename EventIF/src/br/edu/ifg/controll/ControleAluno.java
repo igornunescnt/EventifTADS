@@ -14,11 +14,9 @@ public class ControleAluno {
 	private Aluno a;
 	private AtividadeAluno b;
 	
-	public ControleAluno(Aluno a,AtividadeAluno b) {
+	public ControleAluno(Aluno a) {
 		this.a = a;
-		this.b = b;
 		carregaTabelaEvt();
-		carregaTabelaAtv();
 	}
 
 	
@@ -62,4 +60,5 @@ public class ControleAluno {
 		b.getTable().setModel(modelo);
 		
 	}
+	
 }

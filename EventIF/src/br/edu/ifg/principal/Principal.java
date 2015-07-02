@@ -14,7 +14,6 @@ public class Principal {
 		Login l = new Login();
 		ControleLogin cl = new ControleLogin(l);
 		
-		
 		//Aluno b = new Aluno();
 		//ControleAluno c = new ControleAluno(b);
 		//AlunoDAO a = new AlunoDAO();

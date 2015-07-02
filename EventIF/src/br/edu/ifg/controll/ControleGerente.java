@@ -11,16 +11,30 @@ import br.edu.ifg.view.Gerente;
 public class ControleGerente {
 	
 	
-	Gerente g = new Gerente();
+	//Gerente g = new Gerente();
 	
-	public ControleGerente() {
+	public ControleGerente(Gerente g) {
 		g.getBtnGerenciarEvento().addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				GerenciarEvento ge = new GerenciarEvento();
+				g.getFrmEventifGerente().dispose();
 				//ge.getFrmEventifGerente().setVisible(true);
+				ge.getBtnVoltar().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						ge.getFrmEventifGerente().dispose();
+						Gerente g1 = new Gerente();
+						ControleGerente c1 = new ControleGerente(g1);
+					}
+				});
 			}
 		});
+		
+		
+		
+		
 		
 		g.getBtnGerenciarParticipante().addActionListener(new ActionListener() {
 			
@@ -37,6 +51,7 @@ public class ControleGerente {
 				GerenciarMonitor gm = new GerenciarMonitor();
 			}
 		});
+		
 	}
 	
 

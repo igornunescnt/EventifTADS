@@ -37,7 +37,7 @@ public class ControleLogin {
 				}else if (l.getRdbtnGerente().isSelected()){
 					l.getFrmEventifLogin().dispose();
 					Gerente g1 = new Gerente();
-					ControleGerente g = new ControleGerente();
+					ControleGerente g = new ControleGerente(g1);
 				}else if(l.getRdbtnMonitor().isSelected()){
 					l.getFrmEventifLogin().dispose();
 					Monitor m1 = new Monitor();
@@ -48,10 +48,13 @@ public class ControleLogin {
 		l.getBtnCadastrese().addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
+				if(l.getRdbtnGerente().isSelected() || l.getRdbtnMonitor().isSelected()){
+					l.getBtnCadastrese().setSelected(false);
+				}else  {
 				l.getFrmEventifLogin().dispose();
 				CadastrarPessoa c = new CadastrarPessoa();
 				ControleCadastrar d = new ControleCadastrar(c); 
-			}
+			}}
 		});
 	}
 

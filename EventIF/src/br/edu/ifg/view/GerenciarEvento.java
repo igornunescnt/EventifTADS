@@ -25,8 +25,9 @@ public class GerenciarEvento {
 	private JTextField textField;
 	private JTable table;
 	private JButton btnPesquisar;
-	
-	
+	private JButton btnCadastrar;	
+	private JButton btnVoltar;
+
 
 	public JButton getBtnPesquisar() {
 		return btnPesquisar;
@@ -58,6 +59,23 @@ public class GerenciarEvento {
 
 	public void setTable(JTable table) {
 		this.table = table;
+	}
+	
+
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+
+	public void setBtnCadastrar(JButton btnCadastrar) {
+		this.btnCadastrar = btnCadastrar;
+	}
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
+
+	public void setBtnVoltar(JButton btnVoltar) {
+		this.btnVoltar = btnVoltar;
 	}
 
 	/**
@@ -132,12 +150,12 @@ public class GerenciarEvento {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnCadastrar = new JButton("cadastrar");
-		btnCadastrar.setBounds(578, 438, 89, 23);
+		btnCadastrar = new JButton("cadastrar");
+		btnCadastrar.setBounds(569, 438, 98, 23);
 		panel.add(btnCadastrar);
 		
-		JButton btnVoltar = new JButton("voltar");
-		btnVoltar.setBounds(479, 438, 89, 23);
+		btnVoltar = new JButton("voltar");
+		btnVoltar.setBounds(470, 438, 89, 23);
 		panel.add(btnVoltar);
 		
 		

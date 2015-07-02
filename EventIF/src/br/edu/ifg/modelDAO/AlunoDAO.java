@@ -35,11 +35,9 @@ public class AlunoDAO {
 			con = conf.getConnection();
 			con.setAutoCommit(false);
 
-			stmt = con
-					.prepareStatement(
-							"insert into enderecopessoa "
-									+ "(numero, cep, complemento,idcidade, bairro) values (?,?,?,?,?)",
-							Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement("insert into enderecopessoa "
+					+ "(numero, cep, complemento,idcidade, bairro) values (?,?,?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, aluno.getA().getEndereco().getNumero());
 			stmt.setString(2, aluno.getA().getEndereco().getCep());
 			stmt.setString(3, aluno.getA().getEndereco().getComplemento());
@@ -53,11 +51,9 @@ public class AlunoDAO {
 				id = rs.getInt(1);
 			}
 
-			stmt = con
-					.prepareStatement(
-							"insert into pessoa (nomePessoa, cpfPessoa,emailPessoa,rgPessoa,"
-									+ "telefonePessoa,senhaPessoa,idEnderecoPessoa) values (?,?,?,?,?,?,?)",
-							Statement.RETURN_GENERATED_KEYS);
+			stmt = con.prepareStatement("insert into pessoa (nomePessoa, cpfPessoa,emailPessoa,rgPessoa,"
+					+ "telefonePessoa,senhaPessoa,idEnderecoPessoa) values (?,?,?,?,?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, aluno.getA().getNomePessoa());
 			stmt.setString(2, aluno.getA().getCpfPessoa());
 			stmt.setString(3, aluno.getA().getEmailPessoa());
@@ -78,19 +74,22 @@ public class AlunoDAO {
 			stmt.setLong(1, aluno.getMatricula());
 			stmt.setLong(2, id);
 			stmt.execute();
+
+			JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+
 			con.commit();
 			con.rollback();
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-					"Cadastro não realizado, tente novamente!");
+					"Cadastro não realizado, tente novamente! " + e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e2) {
 				JOptionPane
-						.showMessageDialog(null, "erro ao fechar a conexão!");
+				.showMessageDialog(null, "erro ao fechar a conexão!");
 			}
 		}
 	}
@@ -131,7 +130,7 @@ public class AlunoDAO {
 				con.close();
 			} catch (Exception e2) {
 				JOptionPane
-						.showMessageDialog(null, "erro ao fechar a conexão!");
+				.showMessageDialog(null, "erro ao fechar a conexão!");
 			}
 		}
 	}
@@ -148,7 +147,7 @@ public class AlunoDAO {
 			stmt = con.prepareStatement(
 					"UPDATE enderecopessoa set numero = ?, cep = '?', complemento = '?',"
 							+ "idcidade = ?, bairro = '?')",
-					Statement.RETURN_GENERATED_KEYS);
+							Statement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, aluno.getA().getEndereco().getNumero());
 			stmt.setString(2, aluno.getA().getEndereco().getCep());
 			stmt.setString(3, aluno.getA().getEndereco().getComplemento());
@@ -166,7 +165,7 @@ public class AlunoDAO {
 					.prepareStatement(
 							"UPDATE pessoa SET nomePessoa = '?', cpfPessoa ='?' ,emailPessoa='?',rgPessoa='?',"
 									+ "telefonePessoa='?',senhaPessoa='?',idEnderecoPessoa = ?)",
-							Statement.RETURN_GENERATED_KEYS);
+									Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, aluno.getA().getNomePessoa());
 			stmt.setString(2, aluno.getA().getCpfPessoa());
 			stmt.setString(3, aluno.getA().getEmailPessoa());
@@ -213,7 +212,7 @@ public class AlunoDAO {
 		}
 		return null;
 	}		
-		
+
 
 
 	public ResultSet Cidade(int idEstado) {
@@ -223,7 +222,7 @@ public class AlunoDAO {
 			con = conf.getConnection();
 			stmt = con.prepareStatement("select nomecidade from cidade where idestado="+idEstado);
 			ResultSet rs = stmt.executeQuery();
-			
+
 			return rs;	
 		} catch (Exception e) {
 			e.printStackTrace();

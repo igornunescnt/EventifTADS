@@ -1,13 +1,16 @@
 package br.edu.ifg.controll;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import br.edu.ifg.model.ModeloEvento;
+import br.edu.ifg.modelDAO.AlunoDAO;
 import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.view.Aluno;
 import br.edu.ifg.view.AtividadeAluno;
+import br.edu.ifg.view.Login;
 
 public class ControleAluno {
 	
@@ -17,6 +20,7 @@ public class ControleAluno {
 	public ControleAluno(Aluno a) {
 		this.a = a;
 		carregaTabelaEvt();
+		addEventosBotao();
 	}
 
 	
@@ -59,6 +63,19 @@ public class ControleAluno {
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		b.getTable().setModel(modelo);
 		
+	}
+	
+	public void addEventosBotao(){
+		
+		a.getBtnVoltar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				a.getFrameAluno().dispose();
+				Login n = new Login();
+				ControleLogin cl = new ControleLogin(n);
+			}
+		});
 	}
 	
 }

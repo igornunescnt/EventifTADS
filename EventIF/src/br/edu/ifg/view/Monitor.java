@@ -22,9 +22,34 @@ import java.awt.ScrollPane;
 public class Monitor {
 
 	private JFrame frmEventifMonitor;
-	private JTextField textField;
+	private JTextField tfPesquisar;
+	private JTable table;
+	private JButton btnSair;
 	
-	
+
+	public JTextField getTextField() {
+		return tfPesquisar;
+	}
+
+	public void setTextField(JTextField textField) {
+		this.tfPesquisar = textField;
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public JButton getBtnSair() {
+		return btnSair;
+	}
+
+	public void setBtnSair(JButton btnSair) {
+		this.btnSair = btnSair;
+	}
 
 	public JFrame getFrmEventifMonitor() {
 		return frmEventifMonitor;
@@ -77,31 +102,38 @@ public class Monitor {
 		
 		JLabel lblBemVindoMonitor = new JLabel("Bem vindo, monitor.");
 		lblBemVindoMonitor.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblBemVindoMonitor.setBounds(20, 11, 181, 35);
+		lblBemVindoMonitor.setBounds(35, 33, 181, 35);
 		panel.add(lblBemVindoMonitor);
 		
 		JLabel lblPesquisar = new JLabel("Pesquisar");
 		lblPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPesquisar.setBounds(20, 57, 66, 14);
+		lblPesquisar.setBounds(35, 92, 66, 14);
 		panel.add(lblPesquisar);
 		
-		textField = new JTextField();
-		textField.setBounds(78, 56, 562, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		tfPesquisar = new JTextField();
+		tfPesquisar.setBounds(105, 91, 535, 20);
+		panel.add(tfPesquisar);
+		tfPesquisar.setColumns(10);
 		
 		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(644, 55, 52, 23);
+		btnOk.setBounds(644, 90, 52, 23);
 		panel.add(btnOk);
 		
 		JLabel lblEventos = new JLabel("Eventos");
 		lblEventos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEventos.setBounds(20, 96, 58, 14);
+		lblEventos.setBounds(35, 148, 50, 14);
 		panel.add(lblEventos);
 		
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setBounds(78, 96, 562, 343);
+		btnSair = new JButton("Sair");
+		btnSair.setBounds(607, 438, 89, 23);
+		panel.add(btnSair);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(89, 150, 551, 261);
 		panel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Monitor.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));

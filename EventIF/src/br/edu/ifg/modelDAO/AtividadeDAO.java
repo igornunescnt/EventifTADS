@@ -10,21 +10,26 @@ import java.util.Calendar;
 import java.util.Vector;
 
 import br.edu.ifg.bd.ConnectionFactory;
+import br.edu.ifg.model.ModeloAluno;
 import br.edu.ifg.model.ModeloAtividade;
 import br.edu.ifg.model.ModeloEvento;
 
 public class AtividadeDAO {
 	
+	Connection con = null;
+	PreparedStatement ps = null;
+	ConnectionFactory conf = new ConnectionFactory();
+
+	
 public Vector<Vector<String>> buscaEventos(){
 		
 		Vector<Vector<String>> v = new Vector<Vector<String>>();
 		
-		ConnectionFactory conf = new ConnectionFactory();
 		
-		Connection c = conf.getConnection();
+		con = conf.getConnection();
 		
 		try {
-			PreparedStatement ps = c.prepareStatement("select * from atividade a inner join evento e on"
+			PreparedStatement ps = con.prepareStatement("select * from atividade a inner join evento e on"
 					+ " a.idevento=e.idevento inner join tipoatividade t on a.idtipoatividade=t.idtipoatividade");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
@@ -64,6 +69,41 @@ public Vector<Vector<String>> buscaEventos(){
 		}
 		
 		return v;
+	}
+
+	public Vector<Vector<String>> carregarTabelaAluno(){
+		
+		Vector<Vector<String>> v = new Vector<Vector<String>>();
+		
+		ModeloAluno m = new ModeloAluno();
+		
+		con = conf.getConnection();
+		
+		try {
+			ps = con.prepareStatement("select*from atividadealuno a inner join pessoaaluno p on a.matriculaaluno=p.matriculaaluno"
+					+ "atividade at on a.idatividade=at.idatividade");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				
+				ModeloAluno l = new ModeloAluno();
+				l.getA().setNomePessoa(rs.getString("nomepessoa"));
+				l.setMatricula(rs.getLong("matriculaaluno"));		
+			
+			
+			Vector<String> me = new Vector<String>();
+			me.add(l.getA().getNomePessoa());
+			me.add(l.getMatricula()+"");
+			
+			v.add(me);
+			}
+			
+			return v;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 

@@ -25,8 +25,26 @@ public class GerenciarMonitor {
 	private JTextField textField;
 	private JTable table;
 	private JButton btnPesquisar;
+	private JButton btnCadastrar;
+	private JButton btnVoltar;
+
 	
-	
+
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+
+	public void setBtnCadastrar(JButton btnCadastrar) {
+		this.btnCadastrar = btnCadastrar;
+	}
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
+
+	public void setBtnVoltar(JButton btnVoltar) {
+		this.btnVoltar = btnVoltar;
+	}
 
 	public JButton getBtnPesquisar() {
 		return btnPesquisar;
@@ -36,12 +54,12 @@ public class GerenciarMonitor {
 		this.btnPesquisar = btnPesquisar;
 	}
 
-	public JFrame getFrmEventifAluno() {
+	public JFrame getFrmEventifMonitor() {
 		return frmEventifMonitor;
 	}
 
-	public void setFrmEventifAluno(JFrame frmEventifAluno) {
-		this.frmEventifMonitor = frmEventifAluno;
+	public void setFrmEventifMonitor(JFrame frmEventifMonitor) {
+		this.frmEventifMonitor = frmEventifMonitor;
 	}
 
 	public JTextField getTextField() {
@@ -132,11 +150,11 @@ public class GerenciarMonitor {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnCadastrar = new JButton("cadastrar");
+		btnCadastrar = new JButton("cadastrar");
 		btnCadastrar.setBounds(572, 438, 95, 23);
 		panel.add(btnCadastrar);
 		
-		JButton btnVoltar = new JButton("voltar");
+		btnVoltar = new JButton("voltar");
 		btnVoltar.setBounds(471, 438, 89, 23);
 		panel.add(btnVoltar);
 		

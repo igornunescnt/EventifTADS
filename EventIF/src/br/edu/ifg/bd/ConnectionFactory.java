@@ -10,7 +10,7 @@ public class ConnectionFactory {
 	public Connection getConnection(){
 		Connection con = null;
 		try {
-			con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/eventif","postgres","ifg");
+			con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/tadseventif","postgres","ifg");
 			
 //			JOptionPane.showMessageDialog(null, "Conectado");
 		} catch (Exception e) {

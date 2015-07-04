@@ -17,6 +17,7 @@ import br.edu.ifg.model.ModeloAluno;
 import br.edu.ifg.model.ModeloPessoa;
 import br.edu.ifg.view.CadastrarAtividade;
 import br.edu.ifg.view.CadastrarPessoa;
+import br.edu.ifg.view.Login;
 
 public class AlunoDAO {
 
@@ -38,7 +39,7 @@ public class AlunoDAO {
 			stmt = con.prepareStatement("insert into enderecopessoa "
 					+ "(numero, cep, complemento,idcidade, bairro) values (?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-			stmt.setInt(1, aluno.getA().getEndereco().getNumero());
+			stmt.setString(1, aluno.getA().getEndereco().getNumero());
 			stmt.setString(2, aluno.getA().getEndereco().getCep());
 			stmt.setString(3, aluno.getA().getEndereco().getComplemento());
 			stmt.setLong(4, aluno.getA().getEndereco().getCidade());
@@ -70,9 +71,8 @@ public class AlunoDAO {
 			}
 
 			stmt = con
-					.prepareStatement("insert into pessoaaluno (matriculaAluno, idPessoa) values (?,?)");
-			stmt.setLong(1, aluno.getMatricula());
-			stmt.setLong(2, id);
+					.prepareStatement("insert into pessoaaluno (idPessoa) values (?)");
+			stmt.setLong(1, id);
 			stmt.execute();
 
 			JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
@@ -148,7 +148,7 @@ public class AlunoDAO {
 					"UPDATE enderecopessoa set numero = ?, cep = '?', complemento = '?',"
 							+ "idcidade = ?, bairro = '?')",
 							Statement.RETURN_GENERATED_KEYS);
-			stmt.setInt(1, aluno.getA().getEndereco().getNumero());
+			stmt.setString(1, aluno.getA().getEndereco().getNumero());
 			stmt.setString(2, aluno.getA().getEndereco().getCep());
 			stmt.setString(3, aluno.getA().getEndereco().getComplemento());
 			stmt.setLong(4, aluno.getA().getEndereco().getCidade());
@@ -229,4 +229,41 @@ public class AlunoDAO {
 		}
 		return null;
 	}
+	
+	/*public boolean LoginAluno(Login l){
+		Connection con = null;
+		PreparedStatement stmt = null;
+		//Login l = new Login();
+		ModeloPessoa m = new ModeloPessoa();
+		
+		con = conf.getConnection();
+		try {
+			stmt = con.prepareStatement("select * from pessoa where cpfpessoa = ? and senhapessoa = ? ");
+			
+			stmt.setString(1, l.getCpf());
+			stmt.setString(2, l.getSenha());
+			ResultSet rs = stmt.executeQuery();
+			System.out.println(l.getCpf());
+			System.out.println(l.getSenha());
+			System.out.println(rs.toString());
+
+	
+			if(rs.next()){
+				if(l.getCpf()== l.getTextField().getText() && l.getSenha() == l.getPasswordField().getText()){
+						return true;
+				}
+				else {
+					
+					return false;	
+					}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	*/
 }

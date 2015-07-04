@@ -5,43 +5,39 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
+import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import java.awt.Font;
-import java.awt.Toolkit;
+import javax.swing.UIManager;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
-import java.awt.ScrollPane;
-import java.awt.Label;
-import javax.swing.JTextArea;
-import javax.swing.JEditorPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class Aluno {
 
-	private JFrame frmEventifAluno;
+	private JFrame frameAluno;
 	private JTextField textField;
 	private JTable table;
-	private JButton btnPesquisar;
+	private JButton btnVoltar;
 	
 	
-
-	public JButton getBtnPesquisar() {
-		return btnPesquisar;
+	public JButton getBtnVoltar() {
+		return btnVoltar;
 	}
 
-	public void setBtnPesquisar(JButton btnPesquisar) {
-		this.btnPesquisar = btnPesquisar;
+	public void setBtnVoltar(JButton btnVoltar) {
+		this.btnVoltar = btnVoltar;
 	}
 
-	public JFrame getFrmEventifAluno() {
-		return frmEventifAluno;
+	public JFrame getFrameAluno() {
+		return frameAluno;
 	}
 
-	public void setFrmEventifAluno(JFrame frmEventifAluno) {
-		this.frmEventifAluno = frmEventifAluno;
+	public void setFrameAluno(JFrame frameAluno) {
+		this.frameAluno = frameAluno;
 	}
 
 	public JTextField getTextField() {
@@ -68,7 +64,7 @@ public class Aluno {
 			public void run() {
 				try {
 					Aluno window = new Aluno();
-					window.frmEventifAluno.setVisible(true);
+					window.frameAluno.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,57 +77,68 @@ public class Aluno {
 	 */
 	public Aluno() {
 		initialize();
-		frmEventifAluno.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmEventifAluno = new JFrame();
-		frmEventifAluno.setIconImage(Toolkit.getDefaultToolkit().getImage(Aluno.class.getResource("/br/edu/ifg/view/icon.png")));
-		frmEventifAluno.setTitle("EventIF - aluno");
-		frmEventifAluno.setResizable(false);
-		frmEventifAluno.setBounds(100, 100, 790, 500);
-		frmEventifAluno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmEventifAluno.getContentPane().setLayout(null);
+		frameAluno = new JFrame();
+		frameAluno.setTitle("EventIF - Aluno");
+		frameAluno.setResizable(false);
+		frameAluno.setIconImage(Toolkit.getDefaultToolkit().getImage(Aluno.class.getResource("/br/edu/ifg/view/icon.png")));
+		frameAluno.setBounds(100, 100, 790, 500);
+		frameAluno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameAluno.getContentPane().setLayout(null);
+		frameAluno.setVisible(true);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 784, 472);
-		frmEventifAluno.getContentPane().add(panel);
+		frameAluno.getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(88, 64, 576, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		btnPesquisar = new JButton("OK");
-		btnPesquisar.setBounds(669, 63, 53, 23);
-		panel.add(btnPesquisar);
 		
 		JLabel lblBemVindoAluno = new JLabel("Bem vindo, Aluno.");
 		lblBemVindoAluno.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblBemVindoAluno.setBounds(27, 21, 187, 20);
+		lblBemVindoAluno.setBounds(36, 35, 170, 43);
 		panel.add(lblBemVindoAluno);
 		
-		JLabel lblEventos = new JLabel("Pesquisar");
+		JLabel lblPesquisar = new JLabel("Pesquisar");
+		lblPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPesquisar.setBounds(36, 103, 58, 14);
+		panel.add(lblPesquisar);
+		
+		JLabel lblEventos = new JLabel("Eventos");
 		lblEventos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEventos.setBounds(27, 65, 62, 14);
+		lblEventos.setBounds(36, 162, 58, 14);
 		panel.add(lblEventos);
 		
-		JLabel lblEventos_1 = new JLabel("Eventos");
-		lblEventos_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEventos_1.setBounds(27, 105, 63, 14);
-		panel.add(lblEventos_1);
+		textField = new JTextField();
+		textField.setBounds(94, 100, 539, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnOk = new JButton("OK");
+		btnOk.setBounds(643, 99, 52, 23);
+		panel.add(btnOk);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(88, 107, 576, 355);
+		scrollPane.setBounds(92, 163, 541, 253);
 		panel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{},
+			},
+			new String[] {
+			}
+		));
+		table.setBackground(Color.WHITE);
 		
+		btnVoltar = new JButton("Sair");
+		btnVoltar.setBounds(606, 438, 89, 23);
+		panel.add(btnVoltar);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Aluno.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));

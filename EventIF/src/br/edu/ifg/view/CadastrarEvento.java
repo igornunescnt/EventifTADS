@@ -14,25 +14,146 @@ import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
 
 
 public class CadastrarEvento {
 
 	private JFrame frmEventifCadastrar;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
+	private JTextField tfNome;
+	private JTextField tfDescricao;
+	private JTextField tfDataInicio;
+	private JTextField tfDataFim;
+	private JTextField tfOrganizador;
+	private JTextField tfTelefone;
+	private JTextField tfEmail;
+	private JTextField tfEndereco;
+	private JTextField tfLocal;
+	private JTextField tfNumero;
+	private JTextField tfBairro;
+	private JTextField tfCep;
+	private JButton btnVoltar; 
+	private JButton btnCadastrar;
+
+	public JFrame getFrmEventifCadastrar() {
+		return frmEventifCadastrar;
+	}
+
+	public void setFrmEventifCadastrar(JFrame frmEventifCadastrar) {
+		this.frmEventifCadastrar = frmEventifCadastrar;
+	}
+
+	public JTextField getTfNome() {
+		return tfNome;
+	}
+
+	public void setTfNome(JTextField tfNome) {
+		this.tfNome = tfNome;
+	}
+
+	public JTextField getTfDescricao() {
+		return tfDescricao;
+	}
+
+	public void setTfDescricao(JTextField tfDescricao) {
+		this.tfDescricao = tfDescricao;
+	}
+
+	public JTextField getTfDataInicio() {
+		return tfDataInicio;
+	}
+
+	public void setTfDataInicio(JTextField tfDataInicio) {
+		this.tfDataInicio = tfDataInicio;
+	}
+
+	public JTextField getTfDataFim() {
+		return tfDataFim;
+	}
+
+	public void setTfDataFim(JTextField tfDataFim) {
+		this.tfDataFim = tfDataFim;
+	}
+
+	public JTextField getTfOrganizador() {
+		return tfOrganizador;
+	}
+
+	public void setTfOrganizador(JTextField tfOrganizador) {
+		this.tfOrganizador = tfOrganizador;
+	}
+
+	public JTextField getTfTelefone() {
+		return tfTelefone;
+	}
+
+	public void setTfTelefone(JTextField tfTelefone) {
+		this.tfTelefone = tfTelefone;
+	}
+
+	public JTextField getTfEmail() {
+		return tfEmail;
+	}
+
+	public void setTfEmail(JTextField tfEmail) {
+		this.tfEmail = tfEmail;
+	}
+
+	public JTextField getTfEndereco() {
+		return tfEndereco;
+	}
+
+	public void setTfEndereco(JTextField tfEndereco) {
+		this.tfEndereco = tfEndereco;
+	}
+
+	public JTextField getTfLocal() {
+		return tfLocal;
+	}
+
+	public void setTfLocal(JTextField tfLocal) {
+		this.tfLocal = tfLocal;
+	}
+
+	public JTextField getTfNumero() {
+		return tfNumero;
+	}
+
+	public void setTfNumero(JTextField tfNumero) {
+		this.tfNumero = tfNumero;
+	}
+
+	public JTextField getTfBairro() {
+		return tfBairro;
+	}
+
+	public void setTfBairro(JTextField tfBairro) {
+		this.tfBairro = tfBairro;
+	}
+
+	public JTextField getTfCep() {
+		return tfCep;
+	}
+
+	public void setTfCep(JTextField tfCep) {
+		this.tfCep = tfCep;
+	}
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
+
+	public void setBtnVoltar(JButton btnVoltar) {
+		this.btnVoltar = btnVoltar;
+	}
+
+	public JButton getBtnCadastrar() {
+		return btnCadastrar;
+	}
+
+	public void setBtnCadastrar(JButton btnCadastrar) {
+		this.btnCadastrar = btnCadastrar;
+	}
 
 	/**
 	 * Launch the application.
@@ -68,6 +189,7 @@ public class CadastrarEvento {
 		frmEventifCadastrar.setBounds(100, 100, 786, 385);
 		frmEventifCadastrar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEventifCadastrar.getContentPane().setLayout(null);
+		frmEventifCadastrar.setVisible(true);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 782, 356);
@@ -85,29 +207,29 @@ public class CadastrarEvento {
 		lblDescrio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblDescrio.setBounds(10, 115, 75, 14);
 		
-		textField = new JTextField();
-		textField.setBounds(64, 84, 284, 20);
-		textField.setColumns(10);
+		tfNome = new JTextField();
+		tfNome.setBounds(64, 84, 284, 20);
+		tfNome.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Data incio");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(10, 146, 58, 14);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(64, 115, 284, 20);
-		textField_1.setColumns(10);
+		tfDescricao = new JTextField();
+		tfDescricao.setBounds(64, 115, 284, 20);
+		tfDescricao.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(64, 146, 86, 20);
-		textField_2.setColumns(10);
+		tfDataInicio = new JTextField();
+		tfDataInicio.setBounds(64, 146, 86, 20);
+		tfDataInicio.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(64, 177, 86, 20);
-		textField_3.setColumns(10);
+		tfDataFim = new JTextField();
+		tfDataFim.setBounds(64, 177, 86, 20);
+		tfDataFim.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(74, 208, 274, 20);
-		textField_4.setColumns(10);
+		tfOrganizador = new JTextField();
+		tfOrganizador.setBounds(74, 208, 274, 20);
+		tfOrganizador.setColumns(10);
 		
 		JLabel lblDataIncio = new JLabel("Data fim");
 		lblDataIncio.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -125,13 +247,13 @@ public class CadastrarEvento {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblEmail.setBounds(10, 270, 42, 14);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(64, 239, 86, 20);
-		textField_5.setColumns(10);
+		tfTelefone = new JTextField();
+		tfTelefone.setBounds(64, 239, 86, 20);
+		tfTelefone.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(64, 270, 284, 20);
-		textField_6.setColumns(10);
+		tfEmail = new JTextField();
+		tfEmail.setBounds(64, 270, 284, 20);
+		tfEmail.setColumns(10);
 		
 		JLabel lblLocalDoEvento = new JLabel("Local ");
 		lblLocalDoEvento.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -141,21 +263,21 @@ public class CadastrarEvento {
 		lblRua.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblRua.setBounds(398, 118, 45, 14);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(446, 115, 284, 20);
-		textField_7.setColumns(10);
+		tfEndereco = new JTextField();
+		tfEndereco.setBounds(446, 115, 284, 20);
+		tfEndereco.setColumns(10);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(426, 84, 304, 20);
-		textField_8.setColumns(10);
+		tfLocal = new JTextField();
+		tfLocal.setBounds(426, 84, 304, 20);
+		tfLocal.setColumns(10);
 		
 		JLabel lblN = new JLabel("Numero");
 		lblN.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblN.setBounds(399, 149, 44, 14);
 		
-		textField_10 = new JTextField();
-		textField_10.setBounds(444, 149, 86, 20);
-		textField_10.setColumns(10);
+		tfNumero = new JTextField();
+		tfNumero.setBounds(444, 149, 86, 20);
+		tfNumero.setColumns(10);
 		
 		JLabel lblBairro = new JLabel("Bairro");
 		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -163,33 +285,25 @@ public class CadastrarEvento {
 		
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblCidade.setBounds(398, 211, 45, 14);
+		lblCidade.setBounds(398, 221, 45, 14);
 		
 		JLabel lblUf = new JLabel("UF");
 		lblUf.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblUf.setBounds(398, 245, 16, 14);
+		lblUf.setBounds(575, 221, 16, 14);
 		
 		JLabel lblCep = new JLabel("CEP");
 		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblCep.setBounds(459, 245, 30, 14);
+		lblCep.setBounds(398, 252, 30, 14);
 		
-		textField_11 = new JTextField();
-		textField_11.setBounds(437, 180, 202, 20);
-		textField_11.setColumns(10);
-		
-		textField_12 = new JTextField();
-		textField_12.setBounds(437, 211, 202, 20);
-		textField_12.setColumns(10);
-		
-		textField_13 = new JTextField();
-		textField_13.setBounds(419, 242, 37, 20);
-		textField_13.setColumns(10);
+		tfBairro = new JTextField();
+		tfBairro.setBounds(437, 180, 202, 20);
+		tfBairro.setColumns(10);
 		panel.setLayout(null);
 		
-		textField_14 = new JTextField();
-		textField_14.setBounds(487, 242, 86, 20);
-		textField_14.setColumns(10);
-		panel.add(textField_14);
+		tfCep = new JTextField();
+		tfCep.setBounds(426, 249, 86, 20);
+		tfCep.setColumns(10);
+		panel.add(tfCep);
 		panel.add(lblNome);
 		panel.add(lblDescrio);
 		panel.add(lblNewLabel_1);
@@ -197,38 +311,44 @@ public class CadastrarEvento {
 		panel.add(lblOrganizador);
 		panel.add(lblTelefone);
 		panel.add(lblEmail);
-		panel.add(textField_4);
-		panel.add(textField_3);
-		panel.add(textField_2);
-		panel.add(textField);
-		panel.add(textField_1);
-		panel.add(textField_5);
-		panel.add(textField_6);
+		panel.add(tfOrganizador);
+		panel.add(tfDataFim);
+		panel.add(tfDataInicio);
+		panel.add(tfNome);
+		panel.add(tfDescricao);
+		panel.add(tfTelefone);
+		panel.add(tfEmail);
 		panel.add(lblRua);
 		panel.add(lblLocalDoEvento);
 		panel.add(lblBairro);
 		panel.add(lblN);
 		panel.add(lblCidade);
-		panel.add(textField_12);
-		panel.add(textField_10);
-		panel.add(textField_7);
-		panel.add(textField_8);
-		panel.add(textField_11);
+		panel.add(tfNumero);
+		panel.add(tfEndereco);
+		panel.add(tfLocal);
+		panel.add(tfBairro);
 		panel.add(lblUf);
-		panel.add(textField_13);
 		panel.add(lblCep);
 		panel.add(lblNewLabel);
 		
-		JButton btnCadastrar = new JButton("cadastrar");
+		btnCadastrar = new JButton("cadastrar");
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnCadastrar.setBounds(637, 314, 93, 23);
 		panel.add(btnCadastrar);
 		frmEventifCadastrar.getContentPane().add(panel);
 		
-		JButton btnCancelar = new JButton("cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCancelar.setBounds(538, 314, 93, 23);
-		panel.add(btnCancelar);
+		btnVoltar = new JButton("voltar");
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnVoltar.setBounds(538, 314, 93, 23);
+		panel.add(btnVoltar);
+		
+		JComboBox cbCidade = new JComboBox();
+		cbCidade.setBounds(444, 218, 100, 20);
+		panel.add(cbCidade);
+		
+		JComboBox cbUf = new JComboBox();
+		cbUf.setBounds(592, 218, 40, 20);
+		panel.add(cbUf);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(CadastrarEvento.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));

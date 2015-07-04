@@ -16,7 +16,7 @@ import br.edu.ifg.view.Gerente;
 import br.edu.ifg.view.Login;
 
 public class ControleCadastrar {
-	
+
 	CadastrarPessoa c = null;
 	AlunoDAO a1 = new AlunoDAO();
 
@@ -26,9 +26,9 @@ public class ControleCadastrar {
 		carregaEstados(a1);
 		EventoBotao(c);
 
-		
+
 		c.getCbUf().addItemListener(new ItemListener() {
-			
+
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				if(c.getCbUf().getSelectedIndex() != 0){
@@ -40,22 +40,22 @@ public class ControleCadastrar {
 				else{
 					c.getCbCidade().setEnabled(false);
 				}
-				
+
 			}
 		});
-		
-	c.getCbCidade().addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			c.getCbCidade().getSelectedItem();
-			System.out.println(c.getCbCidade().getSelectedIndex());
-			
-		}
-	});
-	
+
+		c.getCbCidade().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				c.getCbCidade().getSelectedItem();
+				System.out.println(c.getCbCidade().getSelectedIndex());
+
+			}
+		});
+
 	}
-	
+
 	public void carregaEstados(AlunoDAO a){
 		try {
 			ResultSet r = a.Estado();
@@ -73,8 +73,8 @@ public class ControleCadastrar {
 	}
 
 	public void carregaCidades(ResultSet rs){
-		
-		
+
+
 		try {
 
 			while(rs.next()){
@@ -88,14 +88,14 @@ public class ControleCadastrar {
 			c.getCbCidade().setEnabled(false);
 		}
 		else {
-			
+
 		}
 	}
-	
+
 	public void EventoBotao(CadastrarPessoa p){
 		//CadastrarPessoa p = new CadastrarPessoa();
 		p.getBtnVoltar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				p.getFrmEventifCadastrarPessoa().dispose();
@@ -103,45 +103,51 @@ public class ControleCadastrar {
 				ControleLogin c = new ControleLogin(a);
 			}
 		});
-		
+
 		p.getBtnCadastrar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
 				p.getFrmEventifCadastrarPessoa().dispose();
 				EventoTf(p);
-			
+
 			}
 		});
 	}
-	
-	public void EventoTf(CadastrarPessoa p){
-		
-		ModeloAluno a = new ModeloAluno();
-		
-		if(p.getTfnome().getText().equals("")||p.getTfcpf().getText().equals("")||p.getTfrg().getText().equals("")||p.getTfFone().getText().equals("")
-		||p.getTfEmail().getText().equals("")||p.getTfEndereco().getText().equals("")||p.getTfNumero().getText().equals("")||p.getTfBairro().getText().equals("")
-		||p.getTfComplemento().getText().equals("")||p.getCbCidade().getSelectedItem().equals("")||p.getCbUf().getSelectedItem().equals("")){
-		a.getA().setNomePessoa(p.getTfnome().getText());
-		a.getA().setCpfPessoa(p.getTfcpf().getText());
-		a.getA().setSenhaPessoa("123");
-		a.getA().setRgPessoa(p.getTfrg().getText());
-		a.getA().setTelefonePessoa(p.getTfFone().getText());
-		a.getA().setEmailPessoa(p.getTfEmail().getText());
-		a.getA().getEndereco().setRua(p.getTfEndereco().getText());
-		a.getA().getEndereco().setBairro(p.getTfBairro().getText());
-		a.getA().getEndereco().setNumero(Integer.parseInt(p.getTfNumero().getText()));
-		a.getA().getEndereco().setComplemento(p.getTfComplemento().getText());
-		a.getA().getEndereco().setCidade(p.getCbCidade().getSelectedIndex()+1);
-		a.getA().getEndereco().setUf(p.getCbUf().getSelectedIndex());
-		
-		a1.inserir(a);
-		}else {
-			JOptionPane.showMessageDialog(null, "preencha todos campos!");
-			CadastrarPessoa cp = new CadastrarPessoa();
-			ControleCadastrar cc = new ControleCadastrar(cp);
-		}
 
+	public void EventoTf(CadastrarPessoa p){
+		try{
+			if(p.getTfnome().getText().equals("")||p.getTfcpf().getText().equals("")||p.getTfrg().getText().equals("")||
+					p.getTfFone().getText().equals("")||p.getTfEmail().getText().equals("")||p.getTfEndereco().getText().equals("")||
+					p.getTfBairro().getText().equals("")||p.getTfNumero().getText().equals("")||p.getTfComplemento().getText().equals("")){
+
+				JOptionPane.showMessageDialog(null,"preencha todos os campos!");
+				CadastrarPessoa cp = new CadastrarPessoa();
+				ControleCadastrar cl = new ControleCadastrar(cp);
+
+			}else {
+
+				ModeloAluno a = new ModeloAluno();
+
+				a.getA().setNomePessoa(p.getTfnome().getText());
+				a.getA().setCpfPessoa(p.getTfcpf().getText());
+				a.getA().setSenhaPessoa("123");
+				a.getA().setRgPessoa(p.getTfrg().getText());
+				a.getA().setTelefonePessoa(p.getTfFone().getText());
+				a.getA().setEmailPessoa(p.getTfEmail().getText());
+				a.getA().getEndereco().setRua(p.getTfEndereco().getText());
+				a.getA().getEndereco().setBairro(p.getTfBairro().getText());
+				a.getA().getEndereco().setNumero(p.getTfNumero().getText());
+				a.getA().getEndereco().setComplemento(p.getTfComplemento().getText());
+				a.getA().getEndereco().setCidade(p.getCbCidade().getSelectedIndex()+1);
+				a.getA().getEndereco().setUf(p.getCbUf().getSelectedIndex());
+
+
+				a1.inserir(a);
+			}
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null,"Não foi possivel o cadastro, tente novamente!");
+		}
 	}
 }

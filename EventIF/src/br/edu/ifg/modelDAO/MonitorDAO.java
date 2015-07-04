@@ -30,7 +30,7 @@ ConnectionFactory conf = null;
 			
 			stmt = con.prepareStatement("insert into enderecopessoa "
 					+ "(numero, cep, complemento,idcidade, bairro) values (?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS );
-			stmt.setInt(1, monitor.getM().getEndereco().getNumero());
+			stmt.setString(1, monitor.getM().getEndereco().getNumero());
 			stmt.setString(2,  monitor.getM().getEndereco().getCep());
 			stmt.setString(3,  monitor.getM().getEndereco().getComplemento());
 			stmt.setLong(4,  monitor.getM().getEndereco().getCidade());

@@ -27,22 +27,31 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
 import javax.swing.JRadioButton;
+import javax.swing.JPasswordField;
 
 
 public class Login {
 
 	private JFrame frmEventifLogin;
 	private JTextField textField;
-	private JTextField textField_1;
 	private Button button_1;
 	private JRadioButton rdbtnAluno;
 	private JRadioButton rdbtnMonitor;
 	private JRadioButton rdbtnGerente;
 	private JButton btnCadastrese; 
+	private JPasswordField passwordField;
+	private String cpf ;
+	private String senha;
 	
-	
-	
-	
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+
+	public void setPasswordField(JPasswordField passwordField) {
+		this.passwordField = passwordField;
+	}
+
 	public JButton getBtnCadastrese() {
 		return btnCadastrese;
 	}
@@ -67,13 +76,7 @@ public class Login {
 		this.textField = textField;
 	}
 
-	public JTextField getTextField_1() {
-		return textField_1;
-	}
-
-	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
-	}
+	
 
 	public JRadioButton getRdbtnAluno() {
 		return rdbtnAluno;
@@ -147,7 +150,7 @@ public class Login {
 		frmEventifLogin.getContentPane().add(panel);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(39, 166, 29, 14);
+		lblCpf.setBounds(39, 172, 29, 14);
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		textField = new JTextField();
@@ -157,10 +160,6 @@ public class Login {
 		JLabel lblSenha = new JLabel("SENHA");
 		lblSenha.setBounds(39, 224, 40, 14);
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(39, 244, 149, 20);
-		textField_1.setColumns(10);
 		panel.setLayout(null);
 		
 		JLabel lblEsqueciASenha = new JLabel("esqueci a senha");
@@ -170,7 +169,6 @@ public class Login {
 		panel.add(lblSenha);
 		panel.add(lblCpf);
 		panel.add(textField);
-		panel.add(textField_1);
 		
 		button_1 = new Button("Login");
 		button_1.setBounds(42, 289, 70, 22);
@@ -198,6 +196,10 @@ public class Login {
 		btnCadastrese = new JButton("Cadastre-se");
 		btnCadastrese.setBounds(44, 367, 104, 23);
 		panel.add(btnCadastrese);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(39, 238, 149, 20);
+		panel.add(passwordField);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/br/edu/ifg/view/Logo1.png")));

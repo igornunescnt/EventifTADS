@@ -125,7 +125,14 @@ public class Aluno {
 		scrollPane.setBounds(92, 163, 541, 253);
 		panel.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(){
+			@Override
+			public boolean isCellEditable(int arg0, int arg1) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		};
+
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {

@@ -34,6 +34,35 @@ public class CadastrarEvento {
 	private JTextField tfCep;
 	private JButton btnVoltar; 
 	private JButton btnCadastrar;
+	private JComboBox cbUf;
+	private JComboBox cbCidade;
+	private JTextField tfComplemento;
+	
+	
+
+	public JTextField getTfComplemento() {
+		return tfComplemento;
+	}
+
+	public void setTfComplemento(JTextField tfComplemento) {
+		this.tfComplemento = tfComplemento;
+	}
+
+	public JComboBox getCbUf() {
+		return cbUf;
+	}
+
+	public void setCbUf(JComboBox cbUf) {
+		this.cbUf = cbUf;
+	}
+
+	public JComboBox getCbCidade() {
+		return cbCidade;
+	}
+
+	public void setCbCidade(JComboBox cbCidade) {
+		this.cbCidade = cbCidade;
+	}
 
 	public JFrame getFrmEventifCadastrar() {
 		return frmEventifCadastrar;
@@ -273,10 +302,10 @@ public class CadastrarEvento {
 		
 		JLabel lblN = new JLabel("Numero");
 		lblN.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblN.setBounds(399, 149, 44, 14);
+		lblN.setBounds(398, 152, 44, 14);
 		
 		tfNumero = new JTextField();
-		tfNumero.setBounds(444, 149, 86, 20);
+		tfNumero.setBounds(444, 149, 68, 20);
 		tfNumero.setColumns(10);
 		
 		JLabel lblBairro = new JLabel("Bairro");
@@ -285,11 +314,11 @@ public class CadastrarEvento {
 		
 		JLabel lblCidade = new JLabel("Cidade");
 		lblCidade.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblCidade.setBounds(398, 221, 45, 14);
+		lblCidade.setBounds(556, 221, 45, 14);
 		
 		JLabel lblUf = new JLabel("UF");
 		lblUf.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblUf.setBounds(575, 221, 16, 14);
+		lblUf.setBounds(400, 221, 16, 14);
 		
 		JLabel lblCep = new JLabel("CEP");
 		lblCep.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -342,13 +371,27 @@ public class CadastrarEvento {
 		btnVoltar.setBounds(538, 314, 93, 23);
 		panel.add(btnVoltar);
 		
-		JComboBox cbCidade = new JComboBox();
-		cbCidade.setBounds(444, 218, 100, 20);
+		cbCidade = new JComboBox();
+		
+		cbCidade.setBounds(607, 218, 100, 20);
+		cbCidade.addItem("Selecione");
+		cbCidade.setSelectedIndex(0);
 		panel.add(cbCidade);
 		
-		JComboBox cbUf = new JComboBox();
-		cbUf.setBounds(592, 218, 40, 20);
+		cbUf = new JComboBox();
+		cbUf.addItem("Selecione");
+		cbUf.setSelectedIndex(0);
+		cbUf.setBounds(433, 218, 93, 20);
 		panel.add(cbUf);
+		
+		JLabel lblComplemento = new JLabel("Complemento");
+		lblComplemento.setBounds(522, 152, 79, 14);
+		panel.add(lblComplemento);
+		
+		tfComplemento = new JTextField();
+		tfComplemento.setBounds(602, 149, 126, 20);
+		panel.add(tfComplemento);
+		tfComplemento.setColumns(10);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(CadastrarEvento.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));

@@ -24,8 +24,17 @@ public class Gerente {
 	private JButton btnNewButton;
 	private JButton btnGerenciarCrach;
 	private JButton btnGerenciarCertificado;
+	private JButton btnSair;
 	
 	
+	public JButton getBtnSair() {
+		return btnSair;
+	}
+
+	public void setBtnSair(JButton btnSair) {
+		this.btnSair = btnSair;
+	}
+
 	public JButton getBtnGerenciarEvento() {
 		return btnGerenciarEvento;
 	}
@@ -155,6 +164,14 @@ public class Gerente {
 		lblNewLabel_1.setIcon(new ImageIcon(Gerente.class.getResource("/br/edu/ifg/view/Logo1.png")));
 		lblNewLabel_1.setBounds(314, 129, 214, 88);
 		panel.add(lblNewLabel_1);
+		
+		 btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSair.setBounds(687, 31, 73, 23);
+		panel.add(btnSair);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setIcon(new ImageIcon(Gerente.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));

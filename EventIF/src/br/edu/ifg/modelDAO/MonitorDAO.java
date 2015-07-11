@@ -73,5 +73,35 @@ ConnectionFactory conf = null;
 		}
 	}
 
+	public ResultSet Estado() {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+			con = conf.getConnection();
+			stmt = con.prepareStatement("select ufestado from estado");
+			ResultSet rs = stmt.executeQuery();
+			return rs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}		
+
+
+
+	public ResultSet Cidade(int idEstado) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+			con = conf.getConnection();
+			stmt = con.prepareStatement("select nomecidade from cidade where idestado="+idEstado);
+			ResultSet rs = stmt.executeQuery();
+
+			return rs;	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

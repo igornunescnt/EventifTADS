@@ -9,22 +9,24 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.edu.ifg.model.ModeloAluno;
-import br.edu.ifg.modelDAO.AlunoDAO;
+import br.edu.ifg.model.ModeloMonitor;
+import br.edu.ifg.modelDAO.MonitorDAO;
 import br.edu.ifg.view.CadastrarPessoa;
-import br.edu.ifg.view.Gerente;
-import br.edu.ifg.view.Login;
+import br.edu.ifg.view.GerenciarMonitor;
 
-public class ControleCadastrar {
+public class ControleCadastrarMonitor {
+	
 
 	CadastrarPessoa c = null;
-	AlunoDAO a1 = new AlunoDAO();
+	MonitorDAO a1 = new MonitorDAO();
+	private GerenciarMonitor ga;
 
 
-	public ControleCadastrar(CadastrarPessoa c) {
+	public ControleCadastrarMonitor(CadastrarPessoa c, GerenciarMonitor ge) {
+		this.ga = ge;
 		this.c = c;
 		carregaEstados(a1);
-		EventoBotao(c);
+		EventoBotao();
 
 
 		c.getCbUf().addItemListener(new ItemListener() {
@@ -49,12 +51,14 @@ public class ControleCadastrar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				c.getCbCidade().getSelectedItem();
+				System.out.println(c.getCbCidade().getSelectedIndex());
+
 			}
 		});
 
 	}
 
-	public void carregaEstados(AlunoDAO a){
+	public void carregaEstados(MonitorDAO a){
 		try {
 			ResultSet r = a.Estado();
 
@@ -90,56 +94,55 @@ public class ControleCadastrar {
 		}
 	}
 
-	public void EventoBotao(CadastrarPessoa p){
-		//CadastrarPessoa p = new CadastrarPessoa();
-		p.getBtnVoltar().addActionListener(new ActionListener() {
+	public void EventoBotao(){
+				
+		 c.getBtnVoltar().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				p.getFrmEventifCadastrarPessoa().dispose();
-				Login a = new Login();
-				ControleLogin c = new ControleLogin(a);
+				ga.getFrmEventifMonitor().setVisible(true);
+				c.getFrmEventifCadastrarPessoa().dispose();
 			}
 		});
 
-		p.getBtnCadastrar().addActionListener(new ActionListener() {
+		c.getBtnCadastrar().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				p.getFrmEventifCadastrarPessoa().dispose();
-				EventoTf(p);
+				c.getFrmEventifCadastrarPessoa().dispose();
+				EventoTf();
 
 			}
 		});
 	}
 
-	public void EventoTf(CadastrarPessoa p){
+	public void EventoTf(){
 		try{
-			if(p.getTfnome().getText().equals("")||p.getTfcpf().getText().equals("")||p.getTfrg().getText().equals("")||
-					p.getTfFone().getText().equals("")||p.getTfEmail().getText().equals("")||p.getTfEndereco().getText().equals("")||
-					p.getTfBairro().getText().equals("")||p.getTfNumero().getText().equals("")||p.getTfComplemento().getText().equals("")){
+			if(c.getTfnome().getText().equals("")||c.getTfcpf().getText().equals("")||c.getTfrg().getText().equals("")||
+					c.getTfFone().getText().equals("")||c.getTfEmail().getText().equals("")||c.getTfEndereco().getText().equals("")||
+					c.getTfBairro().getText().equals("")||c.getTfNumero().getText().equals("")||c.getTfComplemento().getText().equals("")){
 
 				JOptionPane.showMessageDialog(null,"preencha todos os campos!");
 				CadastrarPessoa cp = new CadastrarPessoa();
-				ControleCadastrar cl = new ControleCadastrar(cp);
+				ControleCadastrarMonitor cm = new ControleCadastrarMonitor(cp, ga);
 
 			}else {
 
-				ModeloAluno a = new ModeloAluno();
+				ModeloMonitor a = new ModeloMonitor();
 
-				a.getA().setNomePessoa(p.getTfnome().getText());
-				a.getA().setCpfPessoa(p.getTfcpf().getText());
-				a.getA().setSenhaPessoa("123");
-				a.getA().setRgPessoa(p.getTfrg().getText());
-				a.getA().setTelefonePessoa(p.getTfFone().getText());
-				a.getA().setEmailPessoa(p.getTfEmail().getText());
-				a.getA().getEndereco().setRua(p.getTfEndereco().getText());
-				a.getA().getEndereco().setBairro(p.getTfBairro().getText());
-				a.getA().getEndereco().setNumero(p.getTfNumero().getText());
-				a.getA().getEndereco().setComplemento(p.getTfComplemento().getText());
-				a.getA().getEndereco().setCidade(p.getCbCidade().getSelectedIndex());
-				a.getA().getEndereco().setUf(p.getCbUf().getSelectedIndex());
+				a.getM().setNomePessoa(c.getTfnome().getText());
+				a.getM().setCpfPessoa(c.getTfcpf().getText());
+				a.getM().setSenhaPessoa("123");
+				a.getM().setRgPessoa(c.getTfrg().getText());
+				a.getM().setTelefonePessoa(c.getTfFone().getText());
+				a.getM().setEmailPessoa(c.getTfEmail().getText());
+				a.getM().getEndereco().setRua(c.getTfEndereco().getText());
+				a.getM().getEndereco().setBairro(c.getTfBairro().getText());
+				a.getM().getEndereco().setNumero(c.getTfNumero().getText());
+				a.getM().getEndereco().setComplemento(c.getTfComplemento().getText());
+				a.getM().getEndereco().setCidade(c.getCbCidade().getSelectedIndex()+1);
+				a.getM().getEndereco().setUf(c.getCbUf().getSelectedIndex());
 
 
 				a1.inserir(a);
@@ -148,4 +151,6 @@ public class ControleCadastrar {
 			JOptionPane.showMessageDialog(null,"Não foi possivel o cadastro, tente novamente!");
 		}
 	}
+
+
 }

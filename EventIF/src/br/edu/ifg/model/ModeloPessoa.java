@@ -5,9 +5,9 @@ import java.util.InputMismatchException;
 
 public class ModeloPessoa {
 	
-	public static Integer tipoPessoaGerente = 1;
-	public static Integer tipoPessoaAluno = 2;
-	public static Integer tipoPessoaMonitor = 3;
+	public static String pessoaaluno = "pessoaaluno" ;
+	public static String pessoamonitor = "pessoamonitor";
+	public static String pessoagerente = "pessoagerente";
 	
 	private long idPessoa;
 	private String nomePessoa;

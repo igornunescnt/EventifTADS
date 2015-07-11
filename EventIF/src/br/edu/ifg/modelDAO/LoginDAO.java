@@ -17,15 +17,15 @@ public class LoginDAO {
 	ConnectionFactory conf = new ConnectionFactory();
 
 	
-	 public boolean consultar(String login, String senha) {  
+	 public boolean consultar(String login, String senha, String tabela){  
 	        boolean autenticado = false;  
 	        String sql;  
 	        try {  
 	            Connection conn = conf.getConnection();  
 	  
-	            sql = "SELECT cpfpessoa, senhapessoa FROM pessoa WHERE cpfpessoa=? and senhapessoa=?";  
+	            sql = "SELECT cpfpessoa, senhapessoa FROM pessoa inner join "+tabela+" on "+tabela+".idpessoa = pessoa.idpessoa WHERE cpfpessoa=? and senhapessoa=?";  
 	            PreparedStatement ps;  
-	            ps = conn.prepareStatement(sql);  
+	            ps = conn.prepareStatement(sql); 
 	            ps.setString(1, login);  
 	            ps.setString(2, senha);  
 	  

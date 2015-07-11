@@ -2,32 +2,36 @@ package br.edu.ifg.controll;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import br.edu.ifg.modelDAO.AlunoDAO;
+import br.edu.ifg.modelDAO.AtividadeDAO;
 import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.view.Aluno;
 import br.edu.ifg.view.AtividadeAluno;
 import br.edu.ifg.view.Login;
 
 public class ControleAluno {
-	
+
 	private Aluno a;
-	private AtividadeAluno b;
-	
+	private AtividadeAluno aa;
+
 	public ControleAluno(Aluno a) {
 		this.a = a;
 		carregaTabelaEvt();
 		addEventosBotao();
+		botaoTabela(aa);
+		//botaoVoltarAtv(aa);
 	}
 
-	
+
 	public void carregaTabelaEvt(){
 		EventoDAO ev = new EventoDAO();
 		Vector<Vector<String>> v = ev.buscaEventos();
-		
+
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
 		colunas.add("Nome do evento");
@@ -36,16 +40,14 @@ public class ControleAluno {
 		colunas.add("Data de encerramento");
 		colunas.add("Local");
 		colunas.add("");
-		colunas.add("");
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		a.getTable().setModel(modelo);
 	}
-	
-	public void carregaTabelaAtv(){
-		EventoDAO ev = new EventoDAO();
-		Vector<Vector<String>> v = ev.buscaEventos();
-		
+
+	public void carregaTabelaAtv(int id){
+		AtividadeDAO ev = new AtividadeDAO();
+		Vector<Vector<String>> v = ev.buscaEventos(id);
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
 		colunas.add("Nome atv.");
@@ -57,18 +59,27 @@ public class ControleAluno {
 		colunas.add("CHH");
 		colunas.add("Vagas");
 		colunas.add("");
-		colunas.add("");
 
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
-		b.getTable().setModel(modelo);
-		
+		AtividadeAluno aa = new AtividadeAluno();
+		aa.getTable().setModel(modelo);
+
+		aa.getBtnVoltar().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				aa.getFrmEventifAluno().dispose();
+				a.getFrameAluno();
+			}
+		});
+
 	}
-	
+
 	public void addEventosBotao(){
-		
+
 		a.getBtnVoltar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				a.getFrameAluno().dispose();
@@ -76,6 +87,28 @@ public class ControleAluno {
 				ControleLogin cl = new ControleLogin(n);
 			}
 		});
+
 	}
-	
+
+	private void botaoTabela(AtividadeAluno aa){
+		a.getTable().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int linha = a.getTable().getSelectedRow();
+				int coluna = a.getTable().getSelectedColumn();
+				int id = Integer.parseInt((String)a.getTable().getValueAt(linha, 0));
+
+				System.out.println(linha+" "+coluna);
+				switch (coluna) {
+
+				case 6:
+					//AtividadeAluno aa = new AtividadeAluno();
+					carregaTabelaAtv(id);
+					break;
+				}
+
+			}
+		});
+
+	}
 }

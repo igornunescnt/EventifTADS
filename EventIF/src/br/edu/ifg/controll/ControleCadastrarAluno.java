@@ -12,16 +12,18 @@ import javax.swing.JOptionPane;
 import br.edu.ifg.model.ModeloAluno;
 import br.edu.ifg.modelDAO.AlunoDAO;
 import br.edu.ifg.view.CadastrarPessoa;
+import br.edu.ifg.view.GerenciarAluno;
 import br.edu.ifg.view.Gerente;
-import br.edu.ifg.view.Login;
 
-public class ControleCadastrar {
-
+public class ControleCadastrarAluno {
+	
 	CadastrarPessoa c = null;
 	AlunoDAO a1 = new AlunoDAO();
+	private GerenciarAluno ga;
 
 
-	public ControleCadastrar(CadastrarPessoa c) {
+	public ControleCadastrarAluno(CadastrarPessoa c, GerenciarAluno ge) {
+		this.ga = ge;
 		this.c = c;
 		carregaEstados(a1);
 		EventoBotao(c);
@@ -49,6 +51,8 @@ public class ControleCadastrar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				c.getCbCidade().getSelectedItem();
+				System.out.println(c.getCbCidade().getSelectedIndex());
+
 			}
 		});
 
@@ -97,8 +101,7 @@ public class ControleCadastrar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				p.getFrmEventifCadastrarPessoa().dispose();
-				Login a = new Login();
-				ControleLogin c = new ControleLogin(a);
+				ga.getFrmEventifAluno().setVisible(true);
 			}
 		});
 
@@ -121,8 +124,8 @@ public class ControleCadastrar {
 					p.getTfBairro().getText().equals("")||p.getTfNumero().getText().equals("")||p.getTfComplemento().getText().equals("")){
 
 				JOptionPane.showMessageDialog(null,"preencha todos os campos!");
-				CadastrarPessoa cp = new CadastrarPessoa();
-				ControleCadastrar cl = new ControleCadastrar(cp);
+				c.getFrmEventifCadastrarPessoa().setVisible(true);
+				ControleCadastrarAluno cl = new ControleCadastrarAluno(c,ga);
 
 			}else {
 
@@ -138,7 +141,7 @@ public class ControleCadastrar {
 				a.getA().getEndereco().setBairro(p.getTfBairro().getText());
 				a.getA().getEndereco().setNumero(p.getTfNumero().getText());
 				a.getA().getEndereco().setComplemento(p.getTfComplemento().getText());
-				a.getA().getEndereco().setCidade(p.getCbCidade().getSelectedIndex());
+				a.getA().getEndereco().setCidade(p.getCbCidade().getSelectedIndex()+1);
 				a.getA().getEndereco().setUf(p.getCbUf().getSelectedIndex());
 
 
@@ -148,4 +151,5 @@ public class ControleCadastrar {
 			JOptionPane.showMessageDialog(null,"Não foi possivel o cadastro, tente novamente!");
 		}
 	}
+
 }

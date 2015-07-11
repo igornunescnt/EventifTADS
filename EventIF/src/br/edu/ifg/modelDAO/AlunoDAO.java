@@ -230,40 +230,4 @@ public class AlunoDAO {
 		return null;
 	}
 	
-	/*public boolean LoginAluno(Login l){
-		Connection con = null;
-		PreparedStatement stmt = null;
-		//Login l = new Login();
-		ModeloPessoa m = new ModeloPessoa();
-		
-		con = conf.getConnection();
-		try {
-			stmt = con.prepareStatement("select * from pessoa where cpfpessoa = ? and senhapessoa = ? ");
-			
-			stmt.setString(1, l.getCpf());
-			stmt.setString(2, l.getSenha());
-			ResultSet rs = stmt.executeQuery();
-			System.out.println(l.getCpf());
-			System.out.println(l.getSenha());
-			System.out.println(rs.toString());
-
-	
-			if(rs.next()){
-				if(l.getCpf()== l.getTextField().getText() && l.getSenha() == l.getPasswordField().getText()){
-						return true;
-				}
-				else {
-					
-					return false;	
-					}
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-		
-	}
-	*/
 }

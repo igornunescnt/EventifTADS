@@ -12,11 +12,37 @@ import java.awt.ScrollPane;
 import javax.swing.JTable;
 import java.awt.Toolkit;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
 
 public class AtividadeMonitor {
 
 	private JFrame frmEventifMonitor;
 	private JTable table;
+	private JButton btnVoltar;
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
+	}
+
+	public void setBtnVoltar(JButton btnVoltar) {
+		this.btnVoltar = btnVoltar;
+	}
+
+	public JFrame getFrmEventifMonitor() {
+		return frmEventifMonitor;
+	}
+
+	public void setFrmEventifMonitor(JFrame frmEventifMonitor) {
+		this.frmEventifMonitor = frmEventifMonitor;
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
 
 	/**
 	 * Launch the application.
@@ -49,12 +75,13 @@ public class AtividadeMonitor {
 		frmEventifMonitor.setResizable(false);
 		frmEventifMonitor.setIconImage(Toolkit.getDefaultToolkit().getImage(AtividadeMonitor.class.getResource("/br/edu/ifg/view/icon.png")));
 		frmEventifMonitor.setTitle("EventIF - Monitor | atividades");
-		frmEventifMonitor.setBounds(100, 100, 688, 420);
+		frmEventifMonitor.setBounds(100, 100, 688, 455);
 		frmEventifMonitor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEventifMonitor.getContentPane().setLayout(null);
+		frmEventifMonitor.setVisible(true);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 683, 393);
+		panel.setBounds(0, 0, 683, 427);
 		frmEventifMonitor.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -64,15 +91,19 @@ public class AtividadeMonitor {
 		panel.add(lblAtividades);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 73, 620, 285);
+		scrollPane.setBounds(29, 73, 620, 299);
 		panel.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
+		btnVoltar = new JButton("voltar");
+		btnVoltar.setBounds(560, 393, 89, 23);
+		panel.add(btnVoltar);
+		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(AtividadeAluno.class.getResource("/br/edu/ifg/view/bgeventif.jpg")));
-		label.setBounds(0, 0, 683, 393);
+		label.setBounds(0, 0, 683, 427);
 		panel.add(label);
 	}
 

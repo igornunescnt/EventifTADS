@@ -10,7 +10,14 @@ public class ModeloEvento {
 	private Calendar dataInicio;
 	private Calendar datafim;
 	private String local;
+	private ModeloEnderecoEvento endereco = new ModeloEnderecoEvento();
 	
+	public ModeloEnderecoEvento getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(ModeloEnderecoEvento endereco) {
+		this.endereco = endereco;
+	}
 	public long getId() {
 		return id;
 	}

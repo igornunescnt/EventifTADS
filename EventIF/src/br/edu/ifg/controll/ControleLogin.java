@@ -12,6 +12,7 @@ import br.edu.ifg.view.Aluno;
 import br.edu.ifg.view.AtividadeAluno;
 import br.edu.ifg.view.AtividadeMonitor;
 import br.edu.ifg.view.CadastrarPessoa;
+import br.edu.ifg.view.GerenciarEvento;
 import br.edu.ifg.view.Gerente;
 import br.edu.ifg.view.Login;
 import br.edu.ifg.view.Monitor;
@@ -20,7 +21,8 @@ public class ControleLogin {
 
 	private Login l;
 	private AtividadeMonitor am;
-
+	private GerenciarEvento ge;
+	private AtividadeAluno aa = null;
 	ModeloPessoa p = new ModeloPessoa();
 	AlunoDAO ad = new AlunoDAO();
 	public ControleLogin(Login l){
@@ -33,14 +35,13 @@ public class ControleLogin {
 		if(resposta == true){
 			
 			if(l.getRdbtnAluno().isSelected()) {
-				// fazer altenticação do  aluno.
 				l.getFrmEventifLogin().dispose();
 				Aluno a1 = new Aluno();
-				ControleAluno c1 = new ControleAluno(a1);
-			}else if (l.getRdbtnGerente().isSelected()){						
+				ControleAluno c1 = new ControleAluno(a1,aa);
+			}else if (l.getRdbtnGerente().isSelected()){
 				l.getFrmEventifLogin().dispose();
 				Gerente g1 = new Gerente();
-				ControleGerente g = new ControleGerente(g1);					
+				ControleGerente g = new ControleGerente(g1,ge);					
 
 			}else if(l.getRdbtnMonitor().isSelected()){
 				l.getFrmEventifLogin().dispose();
@@ -80,7 +81,7 @@ public class ControleLogin {
 
 			public void actionPerformed(ActionEvent arg0) {
 				if(l.getRdbtnGerente().isSelected() || l.getRdbtnMonitor().isSelected()){
-					l.getBtnCadastrese().setSelected(false);
+					l.getBtnCadastrese().disable();
 				}else  {
 					l.getFrmEventifLogin().dispose();
 					CadastrarPessoa c = new CadastrarPessoa();

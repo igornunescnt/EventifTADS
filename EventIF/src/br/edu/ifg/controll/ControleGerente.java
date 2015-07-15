@@ -2,16 +2,17 @@ package br.edu.ifg.controll;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
-import QrCode.ExNativeAccessWebcam;
 import br.edu.ifg.model.ModeloEvento;
-import br.edu.ifg.modelDAO.AtividadeDAO;
-import br.edu.ifg.modelDAO.ControleEvento;
+import br.edu.ifg.modelDAO.AlunoDAO;
 import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.modelDAO.PresencaDAO;
+import br.edu.ifg.view.AtividadeAluno;
 import br.edu.ifg.view.CadastrarEvento;
 import br.edu.ifg.view.CadastrarPessoa;
 import br.edu.ifg.view.GerenciarAluno;
@@ -23,29 +24,35 @@ import br.edu.ifg.view.Gerente;
 import br.edu.ifg.view.Login;
 
 public class ControleGerente {
-	
+
 	private CadastrarPessoa cp = null;
 	private GerenciarMonitor gm = null;
 	private Gerente g = null;
 	private EventoDAO ev =null;
-	GerenciarEvento ge = null;
-	ModeloEvento e = new ModeloEvento();
+	private GerenciarEvento ge = null;
+	private ModeloEvento e = null;
+	private CadastrarEvento ce = null;
+	private AtividadeAluno aa = null;
+	private ControleEvento c;
+	private GerenciarCertificados gc = null;
 
-
-	public ControleGerente(Gerente g) {
+	public ControleGerente(Gerente g,GerenciarEvento ge) {
 		this.g = g;
-		
-		
+
+
 		g.getBtnGerenciarEvento().addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				ge = new GerenciarEvento();
+				GerenciarEvento ge = new GerenciarEvento();
 				carregaTabelaEvt(ge);
+				botaoTabela(ge);
 				g.getFrmEventifGerente().dispose();
 				ge.getBtnPesquisar().addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						ModeloEvento e = new ModeloEvento();
+						e.setNomeEvento(ge.getTextField().getText());
 						Vector<Vector<String>> v = ev.pesquisarEvento(e);
 						carregaTabelaPesquisar(v);
 					}
@@ -54,8 +61,8 @@ public class ControleGerente {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						
-						g.getFrmEventifGerente().setVisible(true);
+						Gerente g = new Gerente();
+						ControleGerente cg = new ControleGerente(g, ge);
 						ge.getFrmEventifGerente().dispose();
 					}
 				});
@@ -65,21 +72,12 @@ public class ControleGerente {
 					public void actionPerformed(ActionEvent e) {
 						ge.getFrmEventifGerente().dispose();
 						CadastrarEvento ce = new CadastrarEvento();
-						ControleEvento c1 = new ControleEvento(ce);
-						ce.getBtnVoltar().addActionListener(new ActionListener() {
+						ControleEvento c1 = new ControleEvento(ce,g,ge);
 
-							public void actionPerformed(ActionEvent e) {
-								ce.getFrmEventifCadastrar().dispose();
-								ge.getFrmEventifGerente().setVisible(true);
-							}
-						});
 					}
 				});
 			}
 		});
-
-
-
 
 
 		g.getBtnGerenciarParticipante().addActionListener(new ActionListener() {
@@ -88,6 +86,7 @@ public class ControleGerente {
 			public void actionPerformed(ActionEvent arg0) {
 				g.getFrmEventifGerente().dispose();
 				GerenciarAluno ga = new GerenciarAluno();
+				CarregaTabelaAluno(ga);
 				//ControleGerente cg = new ControleGerente(g);
 				ga.getBtnVoltar().addActionListener(new ActionListener() {
 
@@ -95,7 +94,7 @@ public class ControleGerente {
 					public void actionPerformed(ActionEvent e) {
 						g.getFrmEventifGerente().setVisible(true);
 						ga.getFrmEventifAluno().dispose();
-						
+
 					}
 				});
 				ga.getBtnCadastrar().addActionListener(new ActionListener() {
@@ -124,9 +123,9 @@ public class ControleGerente {
 						g.getFrmEventifGerente().setVisible(true);
 					}
 				});
-				
+
 				gm.getBtnCadastrar().addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						gm.getFrmEventifMonitor().dispose();
@@ -137,15 +136,16 @@ public class ControleGerente {
 
 			}
 		});
-		
+
 		g.getBtnGerenciarCrach().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				g.getFrmEventifGerente().dispose();
 				GerenciarCrachas c = new GerenciarCrachas();
+				CarregaTabelaAluno(c);
 				c.getBtnVoltar().addActionListener(new ActionListener() {
-					
+
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						c.getFrmEventifGerente().dispose();
@@ -174,7 +174,7 @@ public class ControleGerente {
 					public void actionPerformed(ActionEvent arg0) {
 						gc.getFrmEventifGcertif().dispose();
 						g.getFrmEventifGerente().setVisible(true);
-		
+
 					}
 				});
 			}
@@ -189,7 +189,24 @@ public class ControleGerente {
 
 			}
 		});
-		
+
+	}
+
+	public void CarregaTabelaAluno(GerenciarAluno ga){
+		AlunoDAO a = new AlunoDAO();
+		Vector<Vector<String>> v = a.buscar();
+
+		Vector<String> colunas = new Vector<String>();
+		colunas.add("Id");
+		colunas.add("Aluno");
+		colunas.add("CPF");
+		colunas.add("RG");
+		colunas.add("Bairro");
+		colunas.add("Cidade");
+
+
+		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
+		ga.getTable().setModel(modelo);
 	}
 
 	public void CarregaTabelaAluno(GerenciarCertificados g){
@@ -207,40 +224,100 @@ public class ControleGerente {
 
 	}
 	
+	public void CarregaTabelaAluno(GerenciarCrachas g){
+
+		PresencaDAO a = new PresencaDAO();
+		Vector<Vector<String>> v = a.carregarTabelaAluno();
+
+		Vector<String> colunas = new Vector<String>();
+		colunas.add("Matricula");
+		colunas.add("Nome do aluno");
+		colunas.add("Frequencia");
+
+		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
+		g.getTable().setModel(modelo);
+
+	}
+
 	public void carregaTabelaEvt(GerenciarEvento ge){
 		EventoDAO ev = new EventoDAO();
 		Vector<Vector<String>> v = ev.buscaEventos();
 
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
-		colunas.add("Nome do evento");
+		colunas.add("Evento");
 		colunas.add("Organizador");
-		colunas.add("Data de inicio");
-		colunas.add("Data de encerramento");
+		colunas.add("inicio");
+		colunas.add("fim");
 		colunas.add("Local");
-		colunas.add("");
+		colunas.add("Alterar");
+		colunas.add("Excluir");
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ge.getTable().setModel(modelo);
 	}
-	
+
+
 	public void carregaTabelaPesquisar(Vector<Vector<String>> v){
-		
-		e.setNomeEvento(ge.getTextField().getText());
-		
+		ge.getTable().clearSelection();
+
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
-		colunas.add("Nome do evento");
+		colunas.add("Evento");
 		colunas.add("Organizador");
-		colunas.add("Data de inicio");
-		colunas.add("Data de encerramento");
+		colunas.add("inicio");
+		colunas.add("encerramento");
 		colunas.add("Local");
-		colunas.add("");
-		
+		colunas.add("Alterar");
+		colunas.add("Excluir");
+
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ge.getTable().setModel(modelo);
 	}
-	
-	
+
+	private void botaoTabela(GerenciarEvento ge){
+		ge.getTable().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int linha = ge.getTable().getSelectedRow();
+				int coluna = ge.getTable().getSelectedColumn();
+				int id = Integer.parseInt((String)ge.getTable().getValueAt(linha, 0));
+
+				System.out.println(linha+" "+coluna);
+				switch (coluna) {
+				case 0:
+					String end = ge.getTable().getColumnName(0);
+					//String ev = ge.getTable().getColumn("");
+					//ev.atualiza(end, ev);
+					break;
+				case 1:
+
+					break;
+				case 2:
+
+					break;
+				case 3:
+
+					break;
+				case 4:
+
+					break;
+				case 5:
+
+					break;
+				case 6:
+
+					break;
+
+				case 7:
+
+					break;
+				}
+
+			}
+		});
+
+	}
+
 
 }

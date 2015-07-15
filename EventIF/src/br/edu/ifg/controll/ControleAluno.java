@@ -19,11 +19,12 @@ public class ControleAluno {
 	private Aluno a;
 	private AtividadeAluno aa;
 
-	public ControleAluno(Aluno a) {
+	public ControleAluno(Aluno a,AtividadeAluno aa) {
 		this.a = a;
+		this.aa = aa;
 		carregaTabelaEvt();
 		addEventosBotao();
-		botaoTabela(aa);
+		botaoTabela(aa,a);
 		//botaoVoltarAtv(aa);
 	}
 
@@ -34,43 +35,46 @@ public class ControleAluno {
 
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
-		colunas.add("Nome do evento");
+		colunas.add("Evento");
 		colunas.add("Organizador");
-		colunas.add("Data de inicio");
-		colunas.add("Data de encerramento");
+		colunas.add("inicio");
+		colunas.add("fim");
 		colunas.add("Local");
-		colunas.add("");
+		colunas.add("Visualizar atividades");
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		a.getTable().setModel(modelo);
 	}
 
-	public void carregaTabelaAtv(int id){
+	public void carregaTabelaAtv(int id, AtividadeAluno aa,Aluno a){
 		AtividadeDAO ev = new AtividadeDAO();
 		Vector<Vector<String>> v = ev.buscaEventos(id);
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
-		colunas.add("Nome atv.");
+		colunas.add("Atividade");
 		colunas.add("Descrição");
 		colunas.add("Ministrante");
 		colunas.add("Data");
-		colunas.add("Hora inicio");
-		colunas.add("Hora fim");
+		colunas.add("inicio");
+		colunas.add("fim");
 		colunas.add("CHH");
 		colunas.add("Vagas");
-		colunas.add("");
+		colunas.add("Cadastrar");
+		colunas.add("Cancelar");
+
 
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
-		AtividadeAluno aa = new AtividadeAluno();
+		//AtividadeAluno aa = new AtividadeAluno();
 		aa.getTable().setModel(modelo);
+
 
 		aa.getBtnVoltar().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				aa.getFrmEventifAluno().dispose();
-				a.getFrameAluno();
+				a.getFrameAluno().setVisible(true);
 			}
 		});
 
@@ -90,7 +94,7 @@ public class ControleAluno {
 
 	}
 
-	private void botaoTabela(AtividadeAluno aa){
+	private void botaoTabela(AtividadeAluno aa, Aluno a){
 		a.getTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -98,12 +102,13 @@ public class ControleAluno {
 				int coluna = a.getTable().getSelectedColumn();
 				int id = Integer.parseInt((String)a.getTable().getValueAt(linha, 0));
 
-				System.out.println(linha+" "+coluna);
+				//System.out.println(linha+" "+coluna);
 				switch (coluna) {
 
 				case 6:
-					//AtividadeAluno aa = new AtividadeAluno();
-					carregaTabelaAtv(id);
+					a.getFrameAluno().dispose();
+					AtividadeAluno aa = new AtividadeAluno();
+					carregaTabelaAtv(id,aa,a);
 					break;
 				}
 

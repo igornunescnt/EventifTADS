@@ -24,11 +24,10 @@ public class ControleMonitor {
 	
 	public ControleMonitor(Monitor m, AtividadeMonitor am ) {
 		this.am = am;
-		this.m = m;
-		
+		this.m = m;	
 		addEventoBotao(am);
 		carregaTabelaEvt();
-		botaoTabela(am);
+		botaoTabela(am,m);
 	}
 	
 	
@@ -43,19 +42,20 @@ public class ControleMonitor {
 		colunas.add("Data de inicio");
 		colunas.add("Data de encerramento");
 		colunas.add("Local");
-		colunas.add("");
+		colunas.add("Visualizar Ativ.");
 		
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		m.getTable().setModel(modelo);
 	}
 	
-	public void carregaTabelaAtv(int id){
+	public void carregaTabelaAtv(int id,AtividadeMonitor am){
 		
 		AtividadeDAO ev = new AtividadeDAO();
 		Vector<Vector<String>> v = ev.buscaEventos(id);
 		
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
+		am.getTable().setRowSelectionAllowed(true);
 		colunas.add("Nome atv.");
 		colunas.add("Descrição");
 		colunas.add("Ministrante");
@@ -64,11 +64,11 @@ public class ControleMonitor {
 		colunas.add("Hora fim");
 		colunas.add("CHH");
 		colunas.add("Vagas");
-		colunas.add("Visualizar atividades");
+		colunas.add("Registrar presença");
 
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
-		AtividadeMonitor am = new AtividadeMonitor();
+		//AtividadeMonitor am = new AtividadeMonitor();
 		am.getTable().setModel(modelo);
 		
 		am.getBtnVoltar().addActionListener(new ActionListener() {
@@ -82,7 +82,7 @@ public class ControleMonitor {
 		
 	}
 	
-	private void botaoTabela(AtividadeMonitor am){
+	private void botaoTabela(AtividadeMonitor am, Monitor m){
 		m.getTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -90,12 +90,12 @@ public class ControleMonitor {
 				int coluna = m.getTable().getSelectedColumn();
 				int id = Integer.parseInt((String)m.getTable().getValueAt(linha, 0));
 				
-				System.out.println(linha+" "+coluna);
+				//System.out.println(linha+" "+coluna);
 				switch (coluna) {
 				
 				case 6:
-					//am.getFrmEventifMonitor();
-					carregaTabelaAtv(id);
+					AtividadeMonitor am = new AtividadeMonitor();
+					carregaTabelaAtv(id,am);
 					break;
 				}
 				

@@ -83,7 +83,7 @@ public class AlunoDAO {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Cadastro não realizado, tente novamente! " + e.getMessage());
-			e.printStackTrace();
+			//e.printStackTrace();
 		} finally {
 			try {
 				con.close();
@@ -94,7 +94,7 @@ public class AlunoDAO {
 		}
 	}
 
-	public ArrayList<ModeloAluno> buscar() {
+	public Vector<Vector<String>> buscar() {
 
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -102,28 +102,32 @@ public class AlunoDAO {
 		try {
 			con = conf.getConnection();
 			stmt = con
-					.prepareStatement("select p.nomepessoa,p.cpfpessoa,p.rgpessoa,e.bairro,c.nomecidade from pessoa p inner join enderecopessoa e "
+					.prepareStatement("select  p.idpessoa, p.nomepessoa,p.cpfpessoa,p.rgpessoa,e.bairro,c.nomecidade from pessoa p inner join enderecopessoa e "
 							+ "on p.idenderecopessoa =  e.idenderecopessoa inner join cidade c "
 							+ "on e.idcidade=c.idcidade inner join pessoaaluno pa on p.idpessoa=pa.idpessoa ");
 
 			ResultSet rs = stmt.executeQuery();
 
-			ArrayList<ModeloAluno> aluno = new ArrayList<ModeloAluno>();
+			Vector<Vector<String>> aluno = new Vector<Vector<String>>();
 			ModeloAluno a1 = new ModeloAluno();
 
 			while (rs.next()) {
+				Vector<String> a = new Vector<String>();
+
+				a1.getA().setIdPessoa(rs.getLong("idpessoa"));
 				a1.getA().setNomePessoa(rs.getString("nomepessoa"));
 				a1.getA().setCpfPessoa(rs.getString("cpfpessoa"));
 				a1.getA().setRgPessoa(rs.getString("rgpessoa"));
 				a1.getA().getEndereco().setBairro(rs.getString("bairro"));
 				a1.getA().getEndereco().setCidade(rs.getString("nomecidade"));
+				a.add(a1.toString());
+				aluno.add(a);
 			}
-			aluno.add(a1);
 			return aluno;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Nenhum contato encontrado, tente novamente!");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		} finally {
 			try {
@@ -190,7 +194,7 @@ public class AlunoDAO {
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Atualização não realizada, tente novamente!");
-			e.printStackTrace();
+			//e.printStackTrace();
 		} finally {
 			try {
 				con.close();

@@ -59,6 +59,7 @@ public class EventoDAO {
 			return v;
 
 		}catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "busca incorreta!"+e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
@@ -94,17 +95,57 @@ public class EventoDAO {
 
 			ps.executeUpdate();
 
-			JOptionPane.showMessageDialog(null, "não foi possivel realizar o cadastro!");
+			JOptionPane.showMessageDialog(null, "cadastro realizado com sucesso!");
 
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "não foi possivel realizar o cadastro!");
 			e.printStackTrace();
 		}
-
-
 	}
 
+	/*public void atualiza(String end,String ev){
+
+		c = conf.getConnection();
+
+		try {
+			ps = c.prepareStatement("update enderecoevento set "+end+" = ",PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			int id = 0;
+			if (rs != null && rs.next()) {
+				id = rs.getInt(1);
+			}
+			
+			ps =  c.prepareStatement("update evento set idenderecoevento "+ev+"= ");
+			ps.setLong(1, id);
+
+			ps.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Atualização realizada com sucesso!");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Atualização não realizada!");
+			e.printStackTrace();
+		}
+	}
+	public void deleta(ModeloEvento me){
+		c = conf.getConnection();
+
+		try {
+			ps = c.prepareStatement("delete from evento where idevento = ?");
+			ps.setLong(1, me.getId());
+			ps.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Evento deletado com sucesso!");
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Não foi possivel essa ação!" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+*/
 	public Vector<Vector<String>> buscaEventos(){
 
 		Vector<Vector<String>> v = new Vector<Vector<String>>();

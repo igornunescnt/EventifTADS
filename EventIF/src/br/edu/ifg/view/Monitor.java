@@ -132,7 +132,11 @@ public class Monitor {
 		scrollPane.setBounds(89, 150, 551, 261);
 		panel.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(){
+			public boolean isCellEditable(int lin, int col) {
+				return false;
+			}
+		};
 		scrollPane.setViewportView(table);
 		
 		JLabel label = new JLabel("");

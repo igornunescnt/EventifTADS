@@ -79,7 +79,11 @@ public class AtividadeAluno {
 		scrollPane.setBounds(29, 85, 623, 282);
 		panel.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(){
+			public boolean isCellEditable(int lin, int col) {
+				return false;				
+			}
+		};
 		scrollPane.setViewportView(table);
 		
 		btnVoltar = new JButton("voltar");

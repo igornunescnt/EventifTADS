@@ -94,7 +94,11 @@ public class AtividadeMonitor {
 		scrollPane.setBounds(29, 73, 620, 299);
 		panel.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable(){
+			public boolean isCellEditable(int lin, int col) {
+				return false;				
+			}
+		};
 		scrollPane.setViewportView(table);
 		
 		btnVoltar = new JButton("voltar");

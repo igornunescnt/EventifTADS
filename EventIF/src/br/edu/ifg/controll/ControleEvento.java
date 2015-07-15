@@ -1,31 +1,39 @@
-package br.edu.ifg.modelDAO;
+package br.edu.ifg.controll;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.Date;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 
-import br.edu.ifg.controll.ControleLogin;
 import br.edu.ifg.model.ModeloEvento;
+import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.view.CadastrarEvento;
-import br.edu.ifg.view.Login;
+import br.edu.ifg.view.GerenciarEvento;
+import br.edu.ifg.view.Gerente;
 
 public class ControleEvento {
 
-	 EventoDAO dao = new EventoDAO();
+	EventoDAO dao = new EventoDAO();
 	private CadastrarEvento ce = null;
-	
-	public ControleEvento(CadastrarEvento ce) {
+	private Gerente g = null;
+	private GerenciarEvento ge = null;
+
+
+	public ControleEvento(CadastrarEvento ce,Gerente g,GerenciarEvento ge) {
+		this.g = g;
+		this.ge = ge;
 		this.ce = ce;
 		carregaEstados(dao);
-		EventoBotao(ce);
+		EventoBotao(ce,g,ge);
 
 
 		ce.getCbUf().addItemListener(new ItemListener() {
@@ -93,15 +101,16 @@ public class ControleEvento {
 		}
 	}
 
-	public void EventoBotao(CadastrarEvento ce){
-		//CadastrarPessoa p = new CadastrarPessoa();
+	public void EventoBotao(CadastrarEvento ce, Gerente g, GerenciarEvento ge){
+
 		ce.getBtnVoltar().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ce.getFrmEventifCadastrar().dispose();
-				Login a = new Login();
-				ControleLogin c = new ControleLogin(a);
+				ge.getFrmEventifGerente().setVisible(true);
+				ControleGerente cg = new ControleGerente(g, ge);
+				cg.carregaTabelaEvt(ge);
 			}
 		});
 
@@ -127,8 +136,8 @@ public class ControleEvento {
 					ce.getTfEmail().getText().equals("")|| ce.getTfTelefone().getText().equals("")||
 					ce.getCbUf().getSelectedIndex() == 0 || ce.getTfComplemento().getText().equals("")){
 
-				JOptionPane.showMessageDialog(null," deu errado!");
-				ce.getFrmEventifCadastrar();
+				JOptionPane.showMessageDialog(null," Preencha todos os campos!");
+				ce.getFrmEventifCadastrar().setVisible(true);
 			}else {
 
 				ModeloEvento me = new ModeloEvento();
@@ -149,11 +158,18 @@ public class ControleEvento {
 				me.getEndereco().setCep(ce.getTfCep().getText());
 				//me.getEndereco().setUf(ce.getCbUf().getSelectedIndex());
 				me.getEndereco().setCidade(ce.getCbCidade().getSelectedIndex()+1);
-				
+
 				dao.inserir(me);
 			}
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null,"Não foi possivel o cadastro, tente novamente! "+e.getMessage());
 		}
 	}
+	public void atualizaLinhaTabela(ModeloEvento me){
+
+	}
+	public void deletaLinhaTabela(ModeloEvento me){
+
+	}
+
 }

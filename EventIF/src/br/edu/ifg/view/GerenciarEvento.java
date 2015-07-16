@@ -1,23 +1,17 @@
 package br.edu.ifg.view;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JTable;
 import java.awt.Font;
 import java.awt.Toolkit;
-import javax.swing.table.DefaultTableModel;
-import java.awt.ScrollPane;
-import java.awt.Label;
-import javax.swing.JTextArea;
-import javax.swing.JEditorPane;
-import javax.swing.JInternalFrame;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class GerenciarEvento {
 

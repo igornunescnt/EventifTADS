@@ -102,25 +102,28 @@ public class AlunoDAO {
 		try {
 			con = conf.getConnection();
 			stmt = con
-					.prepareStatement("select  p.idpessoa, p.nomepessoa,p.cpfpessoa,p.rgpessoa,e.bairro,c.nomecidade from pessoa p inner join enderecopessoa e "
-							+ "on p.idenderecopessoa =  e.idenderecopessoa inner join cidade c "
-							+ "on e.idcidade=c.idcidade inner join pessoaaluno pa on p.idpessoa=pa.idpessoa ");
+					.prepareStatement("select p.idpessoa, p.nomepessoa,p.cpfpessoa,p.rgpessoa, pa.matriculaaluno from pessoa p "
+							+ "inner join pessoaaluno pa on p.idpessoa=pa.idpessoa ");
 
 			ResultSet rs = stmt.executeQuery();
 
 			Vector<Vector<String>> aluno = new Vector<Vector<String>>();
-			ModeloAluno a1 = new ModeloAluno();
 
 			while (rs.next()) {
-				Vector<String> a = new Vector<String>();
+				ModeloAluno a1 = new ModeloAluno();
 
 				a1.getA().setIdPessoa(rs.getLong("idpessoa"));
 				a1.getA().setNomePessoa(rs.getString("nomepessoa"));
 				a1.getA().setCpfPessoa(rs.getString("cpfpessoa"));
 				a1.getA().setRgPessoa(rs.getString("rgpessoa"));
-				a1.getA().getEndereco().setBairro(rs.getString("bairro"));
-				a1.getA().getEndereco().setCidade(rs.getString("nomecidade"));
-				a.add(a1.toString());
+				a1.setMatricula(rs.getLong(5));
+				
+				Vector<String> a = new Vector<String>();
+				a.add(a1.getA().getIdPessoa()+"");
+				a.add(a1.getA().getNomePessoa());
+				a.add(a1.getA().getCpfPessoa());
+				a.add(a1.getA().getRgPessoa());
+				a.add(a1.getMatricula()+"");
 				aluno.add(a);
 			}
 			return aluno;

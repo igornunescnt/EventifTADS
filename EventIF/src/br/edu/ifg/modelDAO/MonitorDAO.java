@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
 import br.edu.ifg.bd.ConnectionFactory;
-import br.edu.ifg.model.ModeloAluno;
 import br.edu.ifg.model.ModeloMonitor;
 
 public class MonitorDAO {
@@ -100,6 +100,43 @@ ConnectionFactory conf = null;
 			return rs;	
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Vector<Vector<String>> buscar(){
+		Connection con = null;
+		PreparedStatement stmt = null;
+		 Vector<Vector<String>> v = new Vector<Vector<String>>();
+		 
+		try{
+			con = conf.getConnection();
+			stmt = con.prepareStatement("select p.idpessoa, p.nomepessoa, p.cpfpessoa, p.rgpessoa, m.matriculamonitor from pessoa p"
+					+ " inner join pessoamonitor m on m.idpessoa=p.idpessoa");
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				ModeloMonitor m = new ModeloMonitor();
+				m.getM().setIdPessoa(rs.getLong(1));
+				m.getM().setNomePessoa(rs.getString(2));
+				m.getM().setCpfPessoa(rs.getString(3));
+				m.getM().setRgPessoa(rs.getString(4));
+				m.setMatricula(rs.getLong(5));
+				
+				Vector<String> mm = new Vector<String>();
+				
+				mm.add(m.getM().getIdPessoa()+"");
+				mm.add(m.getM().getNomePessoa());
+				mm.add(m.getM().getCpfPessoa());
+				mm.add(m.getM().getRgPessoa());
+				mm.add(m.getMatricula()+"");
+
+
+				v.add(mm);
+			}
+			return v;
+			
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, "Erro SQL: "+e.getMessage());
 		}
 		return null;
 	}

@@ -44,6 +44,11 @@ public class ControleAluno {
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		a.getTable().setModel(modelo);
+		a.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
+		a.getTable().getColumnModel().getColumn(1).setPreferredWidth(60);
+		a.getTable().getColumnModel().getColumn(5).setPreferredWidth(60);
+
+
 	}
 
 	public void carregaTabelaAtv(int id, AtividadeAluno aa,Aluno a){
@@ -67,6 +72,10 @@ public class ControleAluno {
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		//AtividadeAluno aa = new AtividadeAluno();
 		aa.getTable().setModel(modelo);
+		aa.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
+		aa.getTable().getColumnModel().getColumn(1).setPreferredWidth(60);
+		aa.getTable().getColumnModel().getColumn(5).setPreferredWidth(60);
+
 
 
 		aa.getBtnVoltar().addActionListener(new ActionListener() {

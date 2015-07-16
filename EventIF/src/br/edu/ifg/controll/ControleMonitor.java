@@ -46,6 +46,9 @@ public class ControleMonitor {
 		
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		m.getTable().setModel(modelo);
+		m.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
+		m.getTable().getColumnModel().getColumn(1).setPreferredWidth(60);
+		m.getTable().getColumnModel().getColumn(5).setPreferredWidth(60);
 	}
 	
 	public void carregaTabelaAtv(int id,AtividadeMonitor am){
@@ -55,7 +58,6 @@ public class ControleMonitor {
 		
 		Vector<String> colunas = new Vector<String>();
 		colunas.add("Id");
-		am.getTable().setRowSelectionAllowed(true);
 		colunas.add("Nome atv.");
 		colunas.add("Descrição");
 		colunas.add("Ministrante");
@@ -70,7 +72,10 @@ public class ControleMonitor {
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		//AtividadeMonitor am = new AtividadeMonitor();
 		am.getTable().setModel(modelo);
-		
+		am.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
+		am.getTable().getColumnModel().getColumn(1).setPreferredWidth(60);
+		am.getTable().getColumnModel().getColumn(5).setPreferredWidth(60);
+
 		am.getBtnVoltar().addActionListener(new ActionListener() {
 
 			@Override

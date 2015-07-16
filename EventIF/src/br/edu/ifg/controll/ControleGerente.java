@@ -4,15 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifg.model.ModeloEvento;
 import br.edu.ifg.modelDAO.AlunoDAO;
+import br.edu.ifg.modelDAO.AtividadeDAO;
 import br.edu.ifg.modelDAO.EventoDAO;
+import br.edu.ifg.modelDAO.MonitorDAO;
 import br.edu.ifg.modelDAO.PresencaDAO;
 import br.edu.ifg.view.AtividadeAluno;
+import br.edu.ifg.view.Atividades;
 import br.edu.ifg.view.CadastrarEvento;
 import br.edu.ifg.view.CadastrarPessoa;
 import br.edu.ifg.view.GerenciarAluno;
@@ -22,6 +29,14 @@ import br.edu.ifg.view.GerenciarEvento;
 import br.edu.ifg.view.GerenciarMonitor;
 import br.edu.ifg.view.Gerente;
 import br.edu.ifg.view.Login;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class ControleGerente {
 
@@ -35,6 +50,7 @@ public class ControleGerente {
 	private AtividadeAluno aa = null;
 	private ControleEvento c;
 	private GerenciarCertificados gc = null;
+	private Atividades at = null;
 
 	public ControleGerente(Gerente g,GerenciarEvento ge) {
 		this.g = g;
@@ -114,6 +130,7 @@ public class ControleGerente {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				gm = new GerenciarMonitor();
+				CarregaTabelaMonitor(gm);
 				g.getFrmEventifGerente().dispose();
 				gm.getBtnVoltar().addActionListener(new ActionListener() {
 
@@ -192,6 +209,21 @@ public class ControleGerente {
 
 	}
 
+	public void CarregaTabelaMonitor(GerenciarMonitor gm){
+		MonitorDAO m = new MonitorDAO();
+		Vector<Vector<String>> rs = m.buscar();
+
+		Vector<String> colunas = new Vector<String>();
+		colunas.add("Id");
+		colunas.add("Monitor");
+		colunas.add("CPF");
+		colunas.add("RG");
+		colunas.add("Matricula");
+
+		DefaultTableModel modelo = new DefaultTableModel(rs,colunas);
+		gm.getTable().setModel(modelo);
+	}
+	
 	public void CarregaTabelaAluno(GerenciarAluno ga){
 		AlunoDAO a = new AlunoDAO();
 		Vector<Vector<String>> v = a.buscar();
@@ -201,9 +233,7 @@ public class ControleGerente {
 		colunas.add("Aluno");
 		colunas.add("CPF");
 		colunas.add("RG");
-		colunas.add("Bairro");
-		colunas.add("Cidade");
-
+		colunas.add("Matricula");
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ga.getTable().setModel(modelo);
@@ -250,13 +280,34 @@ public class ControleGerente {
 		colunas.add("inicio");
 		colunas.add("fim");
 		colunas.add("Local");
+		colunas.add("Atividades");
 		colunas.add("Alterar");
 		colunas.add("Excluir");
 
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ge.getTable().setModel(modelo);
+		ge.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
 	}
 
+	public void carregaTabelaAtv(Atividades at,int id){
+		AtividadeDAO dao = new AtividadeDAO();
+		Vector<Vector<String>> v = dao.buscaEventos(id);
+
+		Vector<String> colunas = new Vector<String>();
+		colunas.add("Id");
+		colunas.add("Evento");
+		colunas.add("Organizador");
+		colunas.add("inicio");
+		colunas.add("fim");
+		colunas.add("Local");
+		colunas.add("Atividades");
+		colunas.add("Alterar");
+		colunas.add("Excluir");
+
+		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
+		at.getTable().setModel(modelo);
+		at.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
+	}
 
 	public void carregaTabelaPesquisar(Vector<Vector<String>> v){
 		ge.getTable().clearSelection();
@@ -274,6 +325,19 @@ public class ControleGerente {
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ge.getTable().setModel(modelo);
 	}
+	
+	
+	public void criarQrCode(String qrCodeData, String filePath,String charset, Map hintMap,int qrCodeheight, int qrCodewidth)
+			throws WriterException, IOException {
+		
+		//Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+		BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset),
+		BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
+		MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath.lastIndexOf('.') + 1), new File(filePath));
+		
+	}	
 
 	private void botaoTabela(GerenciarEvento ge){
 		ge.getTable().addMouseListener(new MouseAdapter() {
@@ -285,28 +349,10 @@ public class ControleGerente {
 
 				System.out.println(linha+" "+coluna);
 				switch (coluna) {
-				case 0:
-					String end = ge.getTable().getColumnName(0);
-					//String ev = ge.getTable().getColumn("");
-					//ev.atualiza(end, ev);
-					break;
-				case 1:
-
-					break;
-				case 2:
-
-					break;
-				case 3:
-
-					break;
-				case 4:
-
-					break;
-				case 5:
-
-					break;
+				
 				case 6:
-
+					Atividades at = new Atividades();
+					carregaTabelaAtv(at, id);
 					break;
 
 				case 7:

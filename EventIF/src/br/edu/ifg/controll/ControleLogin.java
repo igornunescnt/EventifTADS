@@ -30,10 +30,10 @@ public class ControleLogin {
 		adicionaEventos();
 
 	}
-	
+
 	public void verificaResposta(boolean resposta){
 		if(resposta == true){
-			
+
 			if(l.getRdbtnAluno().isSelected()) {
 				l.getFrmEventifLogin().dispose();
 				Aluno a1 = new Aluno();
@@ -60,11 +60,11 @@ public class ControleLogin {
 
 			public void actionPerformed(ActionEvent e) {
 				LoginDAO dao = new LoginDAO();
-				
+
 				if(l.getTextField().getText().equals("") || p.validarCpf(l.getTextField().getText()) == false  ||
 						l.getPasswordField().getText().equals("") ){
 					JOptionPane.showMessageDialog(null, "Acesso não permitido.");
-				
+
 				}else{
 					if(l.getRdbtnAluno().isSelected()){
 						verificaResposta(dao.consultar(l.getTextField().getText(),l.getPasswordField().getText(), ModeloPessoa.pessoaaluno));
@@ -77,18 +77,20 @@ public class ControleLogin {
 			}
 		});
 
-		l.getBtnCadastrese().addActionListener(new ActionListener() {
+		if(l.getRdbtnAluno().isSelected()){
 
-			public void actionPerformed(ActionEvent arg0) {
-				if(l.getRdbtnGerente().isSelected() || l.getRdbtnMonitor().isSelected()){
-					l.getBtnCadastrese().disable();
-				}else  {
-					l.getFrmEventifLogin().dispose();
-					CadastrarPessoa c = new CadastrarPessoa();
-					ControleCadastrar d = new ControleCadastrar(c); 
-				}}
-		});
-	}
+			l.getBtnCadastrese().addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent arg0) {
+					if(l.getRdbtnGerente().isSelected() || l.getRdbtnMonitor().isSelected()){
+						l.getBtnCadastrese().disable();
+					}else  {
+						l.getFrmEventifLogin().dispose();
+						CadastrarPessoa c = new CadastrarPessoa();
+						ControleCadastrar d = new ControleCadastrar(c); 
+					}}
+			});
+		}}
 
 
 

@@ -37,11 +37,9 @@ public Vector<Vector<String>> buscaEventos(int id){
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				System.out.println("rs");
 				ModeloAtividade m = new ModeloAtividade();
 				m.setId(rs.getLong("idatividade"));
 				m.setNome(rs.getString("nomeatividade"));
-				System.out.println(rs.getString("nomeatividade"));
 				m.setDescricao(rs.getString("descricaoatividade"));
 				m.setMinistrante(rs.getString("ministranteatividade"));
 				Calendar ca = Calendar.getInstance();
@@ -67,13 +65,13 @@ public Vector<Vector<String>> buscaEventos(int id){
 				
 				v.add(me);
 			}
+			return v;
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return v;
+		return null;
 	}
 
 }

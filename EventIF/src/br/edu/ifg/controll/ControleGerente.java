@@ -19,7 +19,6 @@ import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.modelDAO.MonitorDAO;
 import br.edu.ifg.modelDAO.PresencaDAO;
 import br.edu.ifg.view.AtividadeAluno;
-import br.edu.ifg.view.Atividades;
 import br.edu.ifg.view.CadastrarEvento;
 import br.edu.ifg.view.CadastrarPessoa;
 import br.edu.ifg.view.GerenciarAluno;
@@ -50,18 +49,20 @@ public class ControleGerente {
 	private AtividadeAluno aa = null;
 	private ControleEvento c;
 	private GerenciarCertificados gc = null;
-	private Atividades at = null;
 
 	public ControleGerente(Gerente g,GerenciarEvento ge) {
 		this.g = g;
-
-
+		eventoBotao();
+	}
+	
+	public void eventoBotao() {
 		g.getBtnGerenciarEvento().addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				GerenciarEvento ge = new GerenciarEvento();
 				carregaTabelaEvt(ge);
 				botaoTabela(ge);
+
 				g.getFrmEventifGerente().dispose();
 				ge.getBtnPesquisar().addActionListener(new ActionListener() {
 
@@ -289,25 +290,6 @@ public class ControleGerente {
 		ge.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
 	}
 
-	public void carregaTabelaAtv(Atividades at,int id){
-		AtividadeDAO dao = new AtividadeDAO();
-		Vector<Vector<String>> v = dao.buscaEventos(id);
-
-		Vector<String> colunas = new Vector<String>();
-		colunas.add("Id");
-		colunas.add("Evento");
-		colunas.add("Organizador");
-		colunas.add("inicio");
-		colunas.add("fim");
-		colunas.add("Local");
-		colunas.add("Atividades");
-		colunas.add("Alterar");
-		colunas.add("Excluir");
-
-		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
-		at.getTable().setModel(modelo);
-		at.getTable().getColumnModel().getColumn(0).setPreferredWidth(30);
-	}
 
 	public void carregaTabelaPesquisar(Vector<Vector<String>> v){
 		ge.getTable().clearSelection();
@@ -351,8 +333,7 @@ public class ControleGerente {
 				switch (coluna) {
 				
 				case 6:
-					Atividades at = new Atividades();
-					carregaTabelaAtv(at, id);
+				
 					break;
 
 				case 7:

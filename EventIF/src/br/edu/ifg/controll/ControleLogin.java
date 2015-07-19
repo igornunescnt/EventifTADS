@@ -25,6 +25,8 @@ public class ControleLogin {
 	private AtividadeAluno aa = null;
 	ModeloPessoa p = new ModeloPessoa();
 	AlunoDAO ad = new AlunoDAO();
+	
+	
 	public ControleLogin(Login l){
 		this.l = l;
 		adicionaEventos();

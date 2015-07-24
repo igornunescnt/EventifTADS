@@ -104,22 +104,13 @@ public class EventoDAO {
 		}
 	}
 
-	/*public void atualiza(String end,String ev){
+		public void atualiza(Object valor,String coluna){
 
 		c = conf.getConnection();
 
-		try {
-			ps = c.prepareStatement("update enderecoevento set "+end+" = ",PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
-			int id = 0;
-			if (rs != null && rs.next()) {
-				id = rs.getInt(1);
-			}
-			
-			ps =  c.prepareStatement("update evento set idenderecoevento "+ev+"= ");
-			ps.setLong(1, id);
+		try {	
+			ps = c.prepareStatement("update evento set "+coluna+" = ?");
+			ps.setString(1, (String) valor);
 
 			ps.executeUpdate();
 
@@ -130,6 +121,7 @@ public class EventoDAO {
 			e.printStackTrace();
 		}
 	}
+		
 	public void deleta(ModeloEvento me){
 		c = conf.getConnection();
 
@@ -145,7 +137,8 @@ public class EventoDAO {
 			e.printStackTrace();
 		}
 	}
-*/
+
+	
 	public Vector<Vector<String>> buscaEventos(){
 
 		Vector<Vector<String>> v = new Vector<Vector<String>>();

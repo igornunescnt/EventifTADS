@@ -4,17 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import br.edu.ifg.model.ModeloEvento;
 import br.edu.ifg.modelDAO.AlunoDAO;
-import br.edu.ifg.modelDAO.AtividadeDAO;
 import br.edu.ifg.modelDAO.EventoDAO;
 import br.edu.ifg.modelDAO.MonitorDAO;
 import br.edu.ifg.modelDAO.PresencaDAO;
@@ -29,13 +25,6 @@ import br.edu.ifg.view.GerenciarMonitor;
 import br.edu.ifg.view.Gerente;
 import br.edu.ifg.view.Login;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class ControleGerente {
 
@@ -54,7 +43,7 @@ public class ControleGerente {
 		this.g = g;
 		eventoBotao();
 	}
-	
+
 	public void eventoBotao() {
 		g.getBtnGerenciarEvento().addActionListener(new ActionListener() {
 
@@ -224,7 +213,7 @@ public class ControleGerente {
 		DefaultTableModel modelo = new DefaultTableModel(rs,colunas);
 		gm.getTable().setModel(modelo);
 	}
-	
+
 	public void CarregaTabelaAluno(GerenciarAluno ga){
 		AlunoDAO a = new AlunoDAO();
 		Vector<Vector<String>> v = a.buscar();
@@ -254,7 +243,7 @@ public class ControleGerente {
 		g.getTable().setModel(modelo);
 
 	}
-	
+
 	public void CarregaTabelaAluno(GerenciarCrachas g){
 
 		PresencaDAO a = new PresencaDAO();
@@ -307,44 +296,35 @@ public class ControleGerente {
 		DefaultTableModel modelo = new DefaultTableModel(v,colunas);
 		ge.getTable().setModel(modelo);
 	}
-	
-	
-	public void criarQrCode(String qrCodeData, String filePath,String charset, Map hintMap,int qrCodeheight, int qrCodewidth)
-			throws WriterException, IOException {
-		
-		//Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
-		BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset),
-		BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
-		MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath.lastIndexOf('.') + 1), new File(filePath));
-		
-	}	
 
 	private void botaoTabela(GerenciarEvento ge){
 		ge.getTable().addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 				int linha = ge.getTable().getSelectedRow();
 				int coluna = ge.getTable().getSelectedColumn();
 				int id = Integer.parseInt((String)ge.getTable().getValueAt(linha, 0));
-
 				System.out.println(linha+" "+coluna);
 				switch (coluna) {
-				
+
 				case 6:
-				
+					System.out.println(ge.getTable().getValueAt(linha, coluna));
+
 					break;
 
 				case 7:
-
+				    TableModel model = (TableModel)e.getSource();
+					String columnName = model.getColumnName(coluna);
+				    Object data = model.getValueAt(linha, coluna);
+				    ev.atualiza(data, columnName);
 					break;
-				}
+					}
 
-			}
-		});
+				}
+			});
+
+		}
+
 
 	}
-
-
-}
